@@ -10,7 +10,7 @@ function init() {
 	retrieveLastFiveMinutes();
 	
 	//alert(window.lastId);
-	window.setInterval(retrieveMessages, 100);
+	window.setInterval(retrieveMessages, 2000);
 	
 	// TODO add send functionality.
 	
@@ -67,7 +67,7 @@ function init() {
         async: true,
         success: function(msg) {
 			if (msg) {
-				//
+				// message was sent.
             } else {
 				alert('message not sent');
             }
@@ -109,6 +109,8 @@ function init() {
 			
 			window.lastId = jsonReturned[(jsonReturned.length - 1)].msg_id;
 			$("#chatTable").append(returnedHtml);
+			$("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
+
 		}
 		
 		else {
@@ -149,10 +151,12 @@ function init() {
 			}
 			// grab last message id, and update global variable.
 			
-			window.lastId = jsonReturned[(jsonReturned.length - 1)].msg_id;
-
+			if (jsonReturned.length != 0) {
+				window.lastId = jsonReturned[(jsonReturned.length - 1)].msg_id;
+			}
 			$("#chatTable").append(returnedHtml);
-
+			
+			$("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
 		}
 		
 		else {

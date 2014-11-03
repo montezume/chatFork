@@ -63,7 +63,7 @@ function init() {
             $("#registerCheck").prop('checked', true).trigger("change");
         }
 	
-	$( ".btnclass" ).click(function() { alert('test'); }  );
+	$( "#connectButton" ).click(function() { onConnectClick(usernameBox, passwordBox, emailBox); }  );
 
     } // end init
 

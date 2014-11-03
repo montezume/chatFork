@@ -16,7 +16,6 @@ body, html {
 	text-align: left;
 	background-color: white;
 	padding-left: 50px;
-	height: 100%;
 }
 body {
 
@@ -25,11 +24,12 @@ body {
 	background-repeat:repeat;
 
 }
-#chatRoom {
-
-clear :left;
-
+#chatDiv {
+	height: 200px;
+	overflow-y:scroll; 
+	display:block;
 }
+
 
 #footer {
 	margin-top:40px;

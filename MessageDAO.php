@@ -61,6 +61,18 @@ class MessageDAO {
 			
 			$messages = $stmt->fetchAll();
 			
+			
+			
+			if ($messages == null) {
+				$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_CREATED, USERNAME FROM MESSAGE natural join USER order by DATE_CREATED limit 5);";
+				$stmt = $this->pdo->prepare($query);
+				$stmt->bindParam(1, $lastId);
+				$stmt->execute();
+				$messages = $stmt->fetchAll();
+
+			}
+			
+			
 			$jsonArray = array();
 			
 			foreach($messages as $value) {
