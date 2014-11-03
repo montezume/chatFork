@@ -28,8 +28,21 @@ function init() {
         success: function(msg) {
 		
 		if (msg) {
-			var jsonShit = $.parseJSON(msg);
-			alert(jsonShit[1].username);
+		
+
+			// if messages are returned, add them to table.
+			var jsonReturned = $.parseJSON(msg);
+			var returnedHtml = '';
+			//alert(jsonReturned[1].username);
+			
+			for (var i = 0; i < jsonReturned.length; i++) {
+				returnedHtml += '<tr><td>' + jsonReturned[i].username + '</td> <td>' + 
+					jsonReturned[i].content + '</td> <td>' + jsonReturned[i].date + '</td>';
+				returnedHtml += '</tr>';			
+			}
+			
+			$("#chatTable").append(returnedHtml);
+
 		}
 		
 		else {
