@@ -1,0 +1,48 @@
+body, html {
+	height: 100%;
+}
+
+/* center the wrapper */
+
+
+ * {
+   margin:0;
+   padding:0;
+   font-family:Garamond, Georgia, serif;
+} 
+#wrapper { 
+	width: 80%;
+	margin: 0 auto;
+	text-align: left;
+	background-color: white;
+	padding-left: 50px;
+	height: 100%;
+}
+body {
+
+	text-align: center; /*For IE6 compatibility*/
+	background-image: url(assets/texture.png);
+	background-repeat:repeat;
+
+}
+#chatRoom {
+
+clear :left;
+
+}
+
+#footer {
+	margin-top:40px;
+	clear: left;
+
+}
+
+td, th {
+	text-align: left;
+
+	padding-right: 10px;;
+}
+#connectButton {
+	width: 5em;
+	height: 2em;
+}
