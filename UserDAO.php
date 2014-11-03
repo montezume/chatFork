@@ -15,7 +15,16 @@ class UserDAO {
 			echo $e;
 			}
 		}
+	
+	function getUserId($username) {
+		$query = "SELECT user_id FROM USER WHERE username = ?";
+		$stmt = $this->pdo->prepare($query);
+		$stmt->bindParam(1, $username);
+		$stmt->execute();
+		return $stmt->fetchColumn(0);
 		
+
+	}
 	function login($username, $password) {
 		$hashPass = hash('sha512', $password);
 

@@ -13,6 +13,20 @@ $requestType = htmlentities($_POST['request_type']);
 
 switch ($requestType) {
 
+	case 'sendMessage' :
+		if ($_SESSION['user']) {
+			$userId = htmlentities($_REQUEST['user_Id']);
+			$content = htmlentities($_REQUEST['content']);
+			$messageDAO->createMessage($userId);
+		}
+		else {
+			echo false;
+		}
+	case 'retrieveUserId' : 
+		$username = $_SESSION['user'];
+		echo $userDAO->getUserId($username);
+		break;
+		
 	case 'retrieveLastFive' :
 		// User needs to be logged in to use this function.
 		

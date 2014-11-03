@@ -14,8 +14,11 @@ class MessageDAO {
 			}
 		}
 		
-		function createMessage($user_id) {
-		
+		function createMessage($user_id, $content) {
+			$query = "insert into MESSAGE (CONTENT, USER_ID) values (?, ?);";
+			$stmt = $this->pdo->prepare($query);
+			$stmt->bindParam(1, $content);
+			$stmt->bindParam(2, $user_id);
 		}
 
 		function retrieve($lastId) {
