@@ -1,53 +1,72 @@
-body, html {
-	height: 100%;
-}
-
 /* center the wrapper */
 
 
- * {
-   margin:0;
-   padding:0;
-   font-family:Garamond, Georgia, serif;
-} 
-#wrapper { 
-	width: 80%;
-	margin: 0 auto;
-	text-align: left;
-	background-color: white;
-	padding-left: 50px;
+* {
+    font-family: Garamond, Georgia, serif;
 }
-body {
-	text-align: center; /*For IE6 compatibility*/
-	background-image: url(assets/texture.png);
-	background-repeat:repeat;
+
+body, html {
+    text-align: center;
+ /*For IE6 compatibility*/
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url(assets/texture.png);
+    background-repeat: repeat;
 }
+
+#wrapper {
+    width: 800px;
+    min-height: 100%;
+    height: auto;
+    margin: 0px auto;
+    padding: 0px auto;
+    text-align: left;
+    background-color: white;
+    padding-left: 50px;
+}
+
+#logout {
+    clear: left;
+}
+
+#chatBox {
+}
+
 #chatDiv {
-	height: 200px;
-	overflow-y:scroll; 
-	display:block;
-	width: 50%;
-	float: left;
+    height: 200px;
+    overflow-y: scroll;
+    display: block;
+    float: left;
+    width: 50%;
 }
-#users {
 
+#userTitle {
+    float: left;
+    display: block;
 }
+
+.resizedTextbox {
+    width: 250px;
+    height: 30px;
+}
+
 #controls {
-
-clear: left;
+    clear: left;
 }
 
 #footer {
-	margin-top:40px;
-	clear: left;
+    margin-top: 40px;
+    clear: left;
 }
 
 td, th {
-	text-align: left;
-
-	padding-right: 10px;;
+    text-align: left;
+    padding-right: 10px;
+    ;
 }
+
 #connectButton {
-	width: 5em;
-	height: 2em;
+    width: 5em;
+    height: 2em;
 }

@@ -15,35 +15,50 @@
 
 
 
-<div id="wrapper">
+    <div id="wrapper">
 
-<input type="button" value="Logout" id="logoutButton">
+		<div id="chatBox">
+		
+			<div id="chatDiv">
 
-        <h1>Chat</h1>
-		<div id ="chatDiv">
-        <table id="chatTable">
+            <table id="chatTable">
+			<h2>Messages</h2>
 
-        </table>
+            </table>
+			</div>
+			<div id="userHeading">
+            <h2>Active Users</h2>
+            <div id="users">
+			</div>
+			</div>
+            
 		</div>
-				<div id="users">
-		<p>users here</p>
-		</div>
-		<div id ="controls">
-        <table>
-            <tr>
-			<td><input type="text" id="messageBox"> </td> <td><span class='messageError'></span></td>
-			<td><input type="button" value="Send" id="sendButton"></td>
+		
+        <div id="controls">
+            <table>
+                <tr>
+                    <td>
+                        <input type="text" id="messageBox" class="resizedTextbox"> </td>
+                    <td><span class='messageError'></span>
+                    </td>
+                    <td>
+                        <input type="button" value="Send" id="sendButton">
+                    </td>
 
-			</tr>
+                </tr>
 
-        </table>
-		</div>
-		</div>
+            </table>
+        </div>
+        <div id="logout">
+            <input type="button" value="Logout" id="logoutButton">
+        </div>
 
-    <div id="footer">
-        <h3>malcolm.</h3>
-        <p>&copy;2014&mdash;eternity</p>
-    </div>
+
+
+        <div id="footer">
+            <h3>malcolm.</h3>
+            <p>&copy;2014&mdash;eternity</p>
+        </div>
 
     </div>
 </body>

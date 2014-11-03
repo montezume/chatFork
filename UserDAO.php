@@ -17,7 +17,7 @@ class UserDAO {
 		}
 	
 	function getActiveUsers() {
-		$query = "select * from user where LAST_ACTIVE > DATE_SUB(now(), INTERVAL 5 MINUTE);";
+		$query = "select USER_ID, USERNAME, DATE_FORMAT(LAST_ACTIVE, '%h:%i:%s %p') AS LAST_ACTIVE from user where LAST_ACTIVE > DATE_SUB(now(), INTERVAL 5 MINUTE);";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
 		
@@ -28,7 +28,8 @@ class UserDAO {
 		foreach($users as $value) {
 			
 				$jsonArray[] = array(
-				'user_id' => $value['USER_ID'], 
+				'user_id' => $value['USER_ID'],
+				'username' => $value['USERNAME'], 
 				'last_active' => $value['LAST_ACTIVE']);
 			}
 					

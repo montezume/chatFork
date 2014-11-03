@@ -13,6 +13,10 @@ $requestType = htmlentities($_POST['request_type']);
 
 switch ($requestType) {
 
+	case 'getOnlineUsers':
+		echo $userDAO->getActiveUsers();
+		break;
+
 	case 'logout' :
 		unset($_SESSION["user"]); 
 		break;

@@ -10,7 +10,8 @@ function init() {
 	retrieveLastFiveMinutes();
 	
 	window.setInterval(retrieveMessages, 2000);
-	
+	window.setInterval(getOnlineUsers, 2000);
+
 	// TODO add send functionality.
 	
 	//$("#messageBox");
@@ -39,8 +40,6 @@ function init() {
     return;
 	
 }
-
-		
 	
 	function getUserId() {
 	$.ajax({
@@ -141,6 +140,43 @@ function init() {
     return;
 }
 
+	function getOnlineUsers() {
+		$.ajax({
+
+        type: "POST",
+        url: "chater.php",
+        data: {
+            'request_type': 'getOnlineUsers',
+        },
+        async: true,
+        success: function(msg) {
+		if (msg) {
+		
+			// if messages are returned, add them to table.
+			var jsonReturned = $.parseJSON(msg);
+			var returnedHtml = '<table>';
+			//alert(jsonReturned[1].username);
+			
+			for (var i = 0; i < jsonReturned.length; i++) {
+				
+				returnedHtml += '<tr><td>' + jsonReturned[i].username + '</td> <td>' + 
+					jsonReturned[i].last_active + '</td> <td>';
+				returnedHtml += '</tr>';			
+			}
+			
+			returnedHtml += '</table>';
+			$("#users").html(returnedHtml);			
+		}
+		
+		else {
+			// no messages yall
+		}
+			
+        }
+    });
+    return;
+
+	}
 
 	function retrieveMessages() {
 	
