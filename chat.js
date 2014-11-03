@@ -27,9 +27,14 @@ function init() {
         async: true,
         success: function(msg) {
 		
-		var jsonShit = $.parseJSON(msg);
-		alert(jsonShit[0].content);
-					
+		if (msg) {
+			var jsonShit = $.parseJSON(msg);
+			alert(jsonShit[1].username);
+		}
+		
+		else {
+			// no messages yall
+		}
 			
         }
     });
