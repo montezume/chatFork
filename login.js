@@ -4,10 +4,13 @@ function init() {
 		window.validPass = false; // global var for pass validation
 
 		// check to see if user is logged in, if so redirect.
+		
+		/*
 		if ($.cookie('login')) {
 			window.location.replace("index.html");
 		}
-
+		*/
+		
 		$("#registerCheck").change(function() {
             if (this.checked) {
                 //add event listeners to validate input.
@@ -38,6 +41,8 @@ function init() {
             return;
         });
 		
+		
+		
         if (!$.cookie('registerCheck')) {
             $.cookie('registerCheck', '0');
         }
@@ -47,13 +52,14 @@ function init() {
         var emailHtml = "<tr id='emailRow'> <th>Email</th> <td><input type=text id='emailBox'> </td> <td><span class=emailAlert></span></td></tr>";
 		var emailBox;
 		
+		/*
         if ($.cookie('username')) {
             usernameBox.val($.cookie('username'));
         }
         if ($.cookie('password')) {
             passwordBox.val($.cookie('password'));
         }
-		
+		*/
         // add change event to registraton button.
 
         if ($.cookie('registerCheck') == 1) {
@@ -101,8 +107,9 @@ function onLogin(usernameBox, passwordBox) {
 			//alert(msg);
             if (parseInt(msg) == 1) {
 				alert('You are logged in');
-				$.cookie('login', usernameBox.val());
-				window.location.replace("index.html");
+				// set something else as cookie?
+				//$.cookie('login', usernameBox.val());
+				//window.location.replace("index.html");
 
             } else {
 				alert('Incorrect username or password');
@@ -137,10 +144,11 @@ function onRegister(usernameBox, passwordBox, emailBox) {
         dataType: "html",
         async: true,
         success: function(msg) {
+			alert(msg);
             if (parseInt(msg) != -1) {
-				$.cookie('login', usernameBox.val());
-				window.location.replace("index.html");
-
+				//$.cookie('login', usernameBox.val());
+				//window.location.replace("index.html");
+				alert(msg);
 
             } else {
 				//
@@ -161,11 +169,11 @@ function onFocusOut(requestType, inputBox, errorField) {
 
     switch (requestType) {
         case 'checkUser':
-            $.cookie('username', inputBox.val());
+          //  $.cookie('username', inputBox.val());
             break;
 
         case 'checkPass':
-            $.cookie('password', inputBox.val());
+          //  $.cookie('password', inputBox.val());
             break;
     }
 

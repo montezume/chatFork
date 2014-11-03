@@ -1,10 +1,11 @@
 function init() {
 	window.lastId = 0;
 	
+	/*
 	if (!$.cookie('login')) {
 		window.location.replace("login.html");
 	}
-	
+	*/
 	// You are now logged in. You can do all of the fun stuff that logged in people can do.
 	// Which is ????
 	
@@ -35,7 +36,7 @@ function init() {
 			if (parseInt(msg) == 1) {
 				alert('You are logged in');
 				$.cookie('login', usernameBox.val());
-				window.location.replace("index.html");
+				//window.location.replace("index.html");
 
             } else {
 				//alert('Incorrect username or password');

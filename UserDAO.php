@@ -1,7 +1,6 @@
 <?php
 
 class UserDAO {
-	// session start
 
 	private $pdo;
 	
