@@ -9,7 +9,6 @@ function init() {
 	
 	retrieveLastFiveMinutes();
 	
-	//alert(window.lastId);
 	window.setInterval(retrieveMessages, 2000);
 	
 	// TODO add send functionality.
@@ -21,12 +20,10 @@ function init() {
 	//$("#messageBox").val('cal');
 	$( "#sendButton" ).click(function() { sendMessage(); return false });
  	$( "#logoutButton" ).click(function() { logout(); return false });
-
 }
 
 	function logout() {
 	$.ajax({
-
         type: "POST",
         url: "chater.php",
         data: {
@@ -36,7 +33,6 @@ function init() {
         async: true,
         success: function(msg) {
 			$.cookie('login', null, { path: '/' })
-			alert($.cookie('login'));
 			window.location.replace("login.html");
         }
     });

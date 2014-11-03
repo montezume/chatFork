@@ -16,6 +16,35 @@ class UserDAO {
 			}
 		}
 	
+	function getActiveUsers() {
+		$query = "select * from user where LAST_ACTIVE > DATE_SUB(now(), INTERVAL 5 MINUTE);";
+		$stmt = $this->pdo->prepare($query);
+		$stmt->execute();
+		
+		$users = $stmt->fetchAll();
+			
+		$jsonArray = array();
+			
+		foreach($users as $value) {
+			
+				$jsonArray[] = array(
+				'user_id' => $value['USER_ID'], 
+				'last_active' => $value['LAST_ACTIVE']);
+			}
+					
+		$json = json_encode($jsonArray);
+			
+		return $json;
+
+	}
+	
+	function updateLastActive($userId) {
+		$query = "update USER set LAST_ACTIVE = now() WHERE user_id = ?;";
+		$stmt = $this->pdo->prepare($query);
+		$stmt->bindParam(1, $userId);
+		return $stmt->execute();	
+		}
+		
 	function getUserId($username) {
 		$query = "SELECT user_id FROM USER WHERE username = ?";
 		$stmt = $this->pdo->prepare($query);

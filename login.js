@@ -2,10 +2,8 @@
 function init() {
 
 		// check to see if user is logged in, if so redirect.
-		alert($.cookie('login'));
 		
 		if (!$.cookie('login')) {
-			alert(' not nullnull');
 			window.location.replace("index.html");
 		}
 		
@@ -59,7 +57,7 @@ function init() {
             passwordBox.val($.cookie('password'));
         }
 		
-        // add change event to registraton button.
+        // add change event to registration button.
 
         if ($.cookie('registerCheck') == 1) {
             $("#registerCheck").prop('checked', true).trigger("change");
@@ -71,8 +69,6 @@ function init() {
 
 
         
-
-
 	
 function onConnectClick(usernameBox, passwordBox, emailBox) {
 	
@@ -137,7 +133,6 @@ function onRegister(usernameBox, passwordBox, emailBox) {
         dataType: "html",
         async: true,
         success: function(msg) {
-			alert(msg);
             if (msg) {
 				$.cookie('login', msg);				
 				window.location.replace("index.html");

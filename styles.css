@@ -26,8 +26,16 @@ body {
 	height: 200px;
 	overflow-y:scroll; 
 	display:block;
+	width: 50%;
+	float: left;
 }
+#users {
 
+}
+#controls {
+
+clear: left;
+}
 
 #footer {
 	margin-top:40px;

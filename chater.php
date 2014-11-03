@@ -22,7 +22,8 @@ switch ($requestType) {
 			$userId = htmlentities($_REQUEST['user_Id']);
 			$content = htmlentities($_REQUEST['content']);
 			$messageDAO->createMessage($userId, $content);
-			echo 'hello';
+			$userDAO->updateLastActive($userId);
+			echo true;
 		}
 		else {
 			echo false;

@@ -49,11 +49,10 @@ class MessageDAO {
 			
 			return $json;
 		}
-
 		
 		function retrieveMessages() {
 	
-			$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_CREATED, USERNAME FROM MESSAGE natural join USER where DATE_CREATED > DATE_SUB(now(), INTERVAL 1 MINUTE);";
+			$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_CREATED, USERNAME FROM MESSAGE natural join USER where DATE_CREATED > DATE_SUB(now(), INTERVAL 5 MINUTE);";
 			
 			$stmt = $this->pdo->prepare($query);
 			$stmt->execute();
