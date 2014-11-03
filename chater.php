@@ -29,33 +29,31 @@ switch ($requestType) {
 		echo ($userDAO->validatePassword($password)) ? 1 : -1;
 		break;
 	case 'login' :
+	
 		$username = htmlentities($_REQUEST['name']);
 		$password = htmlentities($_REQUEST['password']);
 		
-		// if successful login, set session.
+		// if successful login, set session and return username
 		
 		if ($userDAO->login($username, $password)) {
 			$_SESSION['user'] = $username;
 			echo $_SESSION['user'];
 		}
 		else {
-			// there was a problem logging in.
-			return false;
-		}
-		// return session id.
-		break;
-	case 'register' :
-	
-		if ($_SESSION['user']) {
-			// user is already logged in.
-			return - 1;
+			echo false;
 		}
 		
+		break;
+	case 'register' :
+			
 		$username = htmlentities($_REQUEST['name']);
 		$password = htmlentities($_REQUEST['password']);
 		$email = htmlentities($_REQUEST['email']);
 		
 		// session id stuff - > create session
+		
+		echo var_dump($userDAO->createUser($username,$password, $email));
+		/*
 		if($userDAO->createUser($username, $password, $email)) {
 			$_SESSION['user'] = $username;
 			echo $_SESSION['user'];
@@ -63,8 +61,9 @@ switch ($requestType) {
 		
 		else {
 			// there was a problem creating account.
-			return -1;
+			echo false;
 		}
+		*/
 		
 		break;
 }

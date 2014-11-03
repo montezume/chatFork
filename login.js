@@ -4,7 +4,6 @@ function init() {
 		window.validPass = false; // global var for pass validation
 
 		// check to see if user is logged in, if so redirect.
-		
 		/*
 		if ($.cookie('login')) {
 			window.location.replace("index.html");
@@ -52,14 +51,14 @@ function init() {
         var emailHtml = "<tr id='emailRow'> <th>Email</th> <td><input type=text id='emailBox'> </td> <td><span class=emailAlert></span></td></tr>";
 		var emailBox;
 		
-		/*
+		
         if ($.cookie('username')) {
             usernameBox.val($.cookie('username'));
         }
         if ($.cookie('password')) {
             passwordBox.val($.cookie('password'));
         }
-		*/
+		
         // add change event to registraton button.
 
         if ($.cookie('registerCheck') == 1) {
@@ -91,7 +90,7 @@ function onConnectClick(usernameBox, passwordBox, emailBox) {
 }
 
 function onLogin(usernameBox, passwordBox) {
-	
+
 	$.ajax({
 
         type: "POST",
@@ -104,17 +103,19 @@ function onLogin(usernameBox, passwordBox) {
         dataType: "html",
         async: true,
         success: function(msg) {
-			//alert(msg);
-            if (parseInt(msg)) {
-				alert('You are logged in');
-				// set something else as cookie?
-				//$.cookie('login', usernameBox.val());
+            alert('hi' + msg);
+			if (msg) {
+				alert('return response' + msg);
+				// set return as login cookie
+				$.cookie('login', msg);
+				// redirect to chat page.
 				//window.location.replace("index.html");
 
             } else {
-				alert('Incorrect username or password');
-				//
+				$('.registerAlert').html('Invalid username or password').css('color', 'red');
+
             }
+			
         }
     });
     return;
@@ -122,11 +123,11 @@ function onLogin(usernameBox, passwordBox) {
 
 function onRegister(usernameBox, passwordBox, emailBox) {
 	if (!window.validUser) {
-		alert("Invalid username! Perhaps it's already taken?");
+		$('.registerAlert').html('Invalid username! Perhaps it\'s already taken?').css('color', 'red');
 		return;
 	}
 	if (!window.validPass) {
-		alert("Invalid password! Perhaps it doesn't pass business rules");
+		$('.registerAlert').html('Invalid password! Perhaps it doesn\'t pass business rules...?').css('color', 'red');
 		return;
 	}
 	
@@ -145,13 +146,13 @@ function onRegister(usernameBox, passwordBox, emailBox) {
         async: true,
         success: function(msg) {
 			alert(msg);
-            if (parseInt(msg) != -1) {
-				//$.cookie('login', usernameBox.val());
+            if (msg) {
+				$.cookie('login', msg);
+				alert('account created');
 				//window.location.replace("index.html");
-				alert(msg);
 
             } else {
-				//
+				$('.registerAlert').html('Register failed... try again?').css('color', 'red');
             }
         }
     });
@@ -169,11 +170,11 @@ function onFocusOut(requestType, inputBox, errorField) {
 
     switch (requestType) {
         case 'checkUser':
-          //  $.cookie('username', inputBox.val());
+            $.cookie('username', inputBox.val());
             break;
 
         case 'checkPass':
-          //  $.cookie('password', inputBox.val());
+            $.cookie('password', inputBox.val());
             break;
     }
 
@@ -188,7 +189,6 @@ function onFocusOut(requestType, inputBox, errorField) {
         dataType: "html",
         async: true,
         success: function(msg) {
-			//alert(msg);
             if (parseInt(msg) != -1) {
 				$(errorField).html('Valid').css('color', 'green');
 				(requestType == 'checkUser') ? window.validUser = true : window.validPass = true;
@@ -203,8 +203,5 @@ function onFocusOut(requestType, inputBox, errorField) {
 
     return;
 }
-
-
-
 
 window.onload = init;

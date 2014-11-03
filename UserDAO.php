@@ -24,7 +24,9 @@ class UserDAO {
 		$stmt->bindParam(1, $username);
 		$stmt->execute();
 		$returnedPassword = $stmt->fetchColumn(0);
+
 		return ($returnedPassword === $hashPass);
+		
 	}
 	
 	function createUser($username, $password, $email) {
@@ -43,9 +45,8 @@ class UserDAO {
 		$stmt->bindParam(1, $username);
 		$stmt->bindParam(2, $hashPass);
 		$stmt->bindParam(3, $email);
-		$stmt->execute();
+		return $stmt->execute();
 
-		return $stmt->rowCount();
 	}
 	
 	function validateUsername($username) {
