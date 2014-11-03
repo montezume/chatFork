@@ -1,7 +1,5 @@
 
 function init() {
-		window.validUser = false; // global var for username validation.
-		window.validPass = false; // global var for pass validation
 
 		// check to see if user is logged in, if so redirect.
 		/*
@@ -90,6 +88,7 @@ function onConnectClick(usernameBox, passwordBox, emailBox) {
 }
 
 function onLogin(usernameBox, passwordBox) {
+	$('.registerAlert').html('');
 
 	$.ajax({
 
@@ -103,13 +102,10 @@ function onLogin(usernameBox, passwordBox) {
         dataType: "html",
         async: true,
         success: function(msg) {
-            alert('hi' + msg);
 			if (msg) {
-				alert('return response' + msg);
 				// set return as login cookie
 				$.cookie('login', msg);
-				// redirect to chat page.
-				//window.location.replace("index.html");
+				window.location.replace("index.html");
 
             } else {
 				$('.registerAlert').html('Invalid username or password').css('color', 'red');
@@ -122,14 +118,9 @@ function onLogin(usernameBox, passwordBox) {
 }
 
 function onRegister(usernameBox, passwordBox, emailBox) {
-	if (!window.validUser) {
-		$('.registerAlert').html('Invalid username! Perhaps it\'s already taken?').css('color', 'red');
-		return;
-	}
-	if (!window.validPass) {
-		$('.registerAlert').html('Invalid password! Perhaps it doesn\'t pass business rules...?').css('color', 'red');
-		return;
-	}
+	
+	$('.registerAlert').html('');
+
 	
 	// user and pass are valid apparently, let's register yall
 	    $.ajax({
@@ -149,6 +140,7 @@ function onRegister(usernameBox, passwordBox, emailBox) {
             if (msg) {
 				$.cookie('login', msg);
 				alert('account created');
+				
 				//window.location.replace("index.html");
 
             } else {
@@ -191,11 +183,9 @@ function onFocusOut(requestType, inputBox, errorField) {
         success: function(msg) {
             if (parseInt(msg) != -1) {
 				$(errorField).html('Valid').css('color', 'green');
-				(requestType == 'checkUser') ? window.validUser = true : window.validPass = true;
 				
             } else {
                 $(errorField).html('Invalid').css('color', 'red');
-				(requestType == 'checkUser') ? window.validUser = false : window.validPass = false;
 
             }
         }

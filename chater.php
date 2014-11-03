@@ -45,15 +45,13 @@ switch ($requestType) {
 		
 		break;
 	case 'register' :
-			
+		
 		$username = htmlentities($_REQUEST['name']);
 		$password = htmlentities($_REQUEST['password']);
 		$email = htmlentities($_REQUEST['email']);
 		
 		// session id stuff - > create session
-		
-		echo var_dump($userDAO->createUser($username,$password, $email));
-		/*
+	
 		if($userDAO->createUser($username, $password, $email)) {
 			$_SESSION['user'] = $username;
 			echo $_SESSION['user'];
@@ -63,7 +61,6 @@ switch ($requestType) {
 			// there was a problem creating account.
 			echo false;
 		}
-		*/
 		
 		break;
 }
