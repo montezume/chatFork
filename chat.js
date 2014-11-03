@@ -3,7 +3,7 @@ function init() {
 	window.lastId = 0;
 	getUserId();
 		
-	if (!$.cookie('login')) {
+	if ($.cookie('login') == null) {
 		window.location.replace("login.html");
 	}
 	
@@ -20,9 +20,32 @@ function init() {
 	
 	//$("#messageBox").val('cal');
 	$( "#sendButton" ).click(function() { sendMessage(); return false });
- 
+ 	$( "#logoutButton" ).click(function() { logout(); return false });
+
 }
 
+	function logout() {
+	$.ajax({
+
+        type: "POST",
+        url: "chater.php",
+        data: {
+            request_type: 'logout'
+        },
+        dataType: "html",
+        async: true,
+        success: function(msg) {
+			$.cookie('login', null, { path: '/' })
+			alert($.cookie('login'));
+			window.location.replace("login.html");
+        }
+    });
+    return;
+	
+}
+
+		
+	
 	function getUserId() {
 	$.ajax({
 
@@ -107,7 +130,7 @@ function init() {
 			
 			// grab last message id, and update global variable.
 			
-			window.lastId = jsonReturned[(jsonReturned.length - 1)].msg_id;
+			window.lastId = jsonReturned[0].msg_id;
 			$("#chatTable").append(returnedHtml);
 			$("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
 

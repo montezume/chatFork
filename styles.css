@@ -18,11 +18,9 @@ body, html {
 	padding-left: 50px;
 }
 body {
-
 	text-align: center; /*For IE6 compatibility*/
 	background-image: url(assets/texture.png);
 	background-repeat:repeat;
-
 }
 #chatDiv {
 	height: 200px;
@@ -34,7 +32,6 @@ body {
 #footer {
 	margin-top:40px;
 	clear: left;
-
 }
 
 td, th {

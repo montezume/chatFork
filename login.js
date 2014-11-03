@@ -2,8 +2,10 @@
 function init() {
 
 		// check to see if user is logged in, if so redirect.
+		alert($.cookie('login'));
 		
-		if ($.cookie('login')) {
+		if (!$.cookie('login')) {
+			alert(' not nullnull');
 			window.location.replace("index.html");
 		}
 		
@@ -104,7 +106,7 @@ function onLogin(usernameBox, passwordBox) {
         success: function(msg) {
 			if (msg) {
 				// set return as login cookie
-				$.cookie('login', msg);
+				$.removeCookie('login', { path : '/' });
 				window.location.replace("index.html");
 
             } else {
@@ -121,7 +123,6 @@ function onRegister(usernameBox, passwordBox, emailBox) {
 	
 	$('.registerAlert').html('');
 
-	
 	// user and pass are valid apparently, let's register yall
 	    $.ajax({
 
@@ -138,9 +139,7 @@ function onRegister(usernameBox, passwordBox, emailBox) {
         success: function(msg) {
 			alert(msg);
             if (msg) {
-				$.cookie('login', msg);
-				alert('account created');
-				
+				$.cookie('login', msg);				
 				window.location.replace("index.html");
 
             } else {

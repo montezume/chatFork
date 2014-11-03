@@ -13,6 +13,10 @@ $requestType = htmlentities($_POST['request_type']);
 
 switch ($requestType) {
 
+	case 'logout' :
+		unset($_SESSION["user"]); 
+		break;
+		
 	case 'sendMessage' :
 		if ($_SESSION['user']) {
 			$userId = htmlentities($_REQUEST['user_Id']);
@@ -32,7 +36,7 @@ switch ($requestType) {
 		// User needs to be logged in to use this function.
 		
 		if ($_SESSION['user']) {
-			echo ($messageDAO->retrieveMessages(5));
+			echo ($messageDAO->retrieveMessages());
 		}
 		else {
 			echo false;
