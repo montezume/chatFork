@@ -1,11 +1,10 @@
 <?php 
 
-// start the session
-session_start();
-
-
 require 'UserDAO.php';
 require 'MessageDAO.php';
+
+// start the session
+session_start();
 
 $userDAO = new UserDAO();
 $messageDAO = new MessageDAO();
@@ -33,9 +32,16 @@ switch ($requestType) {
 		$username = htmlentities($_REQUEST['name']);
 		$password = htmlentities($_REQUEST['password']);
 		
-		// if logged in.
+		// if successful login, set session.
 		
-		echo ($userDAO->login($username, $password));
+		if ($userDAO->login($username, $password)) {
+			$_SESSION['user'] = $username;
+			echo $_SESSION['user'];
+		}
+		else {
+			// there was a problem logging in.
+			return false;
+		}
 		// return session id.
 		break;
 	case 'register' :

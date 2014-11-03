@@ -105,7 +105,7 @@ function onLogin(usernameBox, passwordBox) {
         async: true,
         success: function(msg) {
 			//alert(msg);
-            if (parseInt(msg) == 1) {
+            if (parseInt(msg)) {
 				alert('You are logged in');
 				// set something else as cookie?
 				//$.cookie('login', usernameBox.val());
