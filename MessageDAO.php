@@ -19,7 +19,9 @@ class MessageDAO {
 			$stmt = $this->pdo->prepare($query);
 			$stmt->bindParam(1, $content);
 			$stmt->bindParam(2, $user_id);
-		}
+			return $stmt->execute();
+
+			}
 
 		function retrieve($lastId) {
 	

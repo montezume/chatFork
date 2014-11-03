@@ -17,7 +17,8 @@ switch ($requestType) {
 		if ($_SESSION['user']) {
 			$userId = htmlentities($_REQUEST['user_Id']);
 			$content = htmlentities($_REQUEST['content']);
-			$messageDAO->createMessage($userId);
+			$messageDAO->createMessage($userId, $content);
+			echo 'hello';
 		}
 		else {
 			echo false;

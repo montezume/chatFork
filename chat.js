@@ -1,20 +1,16 @@
 function init() {
+	// set global vars.
 	window.lastId = 0;
-	//window.userId = getUserId();
+	getUserId();
 		
-	/*
 	if (!$.cookie('login')) {
 		window.location.replace("login.html");
 	}
-	*/
 	
-	// You are now logged in. You can do all of the fun stuff that logged in people can do.
-	// Which is ????
-		
-	//retrieveLastFiveMinutes();
+	retrieveLastFiveMinutes();
 	
 	//alert(window.lastId);
-	//window.setInterval(retrieveMessages, 100);
+	window.setInterval(retrieveMessages, 100);
 	
 	// TODO add send functionality.
 	
@@ -22,7 +18,9 @@ function init() {
 	
 	//let's get userid....
 	
-	
+	//$("#messageBox").val('cal');
+	$( "#sendButton" ).click(function() { sendMessage(); return false });
+ 
 }
 
 	function getUserId() {
@@ -37,8 +35,7 @@ function init() {
         async: true,
         success: function(msg) {
 			if (msg) {
-				// nothing
-
+				window.userId = parseInt(msg);
             } else {
 				//redirect as not logged in.
             }
@@ -51,7 +48,11 @@ function init() {
 
 	function sendMessage() {
 	
+	
 	var message = $("#messageBox").val();
+	if (message == "") {
+		return;
+	}
 	
 	$.ajax({
 
@@ -59,15 +60,14 @@ function init() {
         url: "chater.php",
         data: {
             request_type: 'sendMessage',
-			user_Id : window.userId,
-			content : message
+			content : message,
+			user_Id : window.userId
         },
         dataType: "html",
         async: true,
         success: function(msg) {
 			if (msg) {
-				// message is sent.
-
+				//
             } else {
 				alert('message not sent');
             }
