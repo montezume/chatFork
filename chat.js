@@ -11,7 +11,7 @@ function init() {
 	
 	// continuously get messages.
 	
-	retrieveMessages(0);
+	alert(retrieveMessages(0));
 	
 	function retrieveMessages(lastId) {
 	
@@ -26,22 +26,8 @@ function init() {
         dataType: 'json',
         async: true,
         success: function(msg) {
-		//$("#chatTable").append(msg);
-			for (var i in msg) {
-				for (var j in i) {
-				alert(msg[i]);
-				}
-			}
-		
-			if (parseInt(msg) == 1) {
-				alert('You are logged in');
-				$.cookie('login', usernameBox.val());
-				//window.location.replace("index.html");
-
-            } else {
-				//alert('Incorrect username or password');
-				//
-            }
+			alert(JSON.parse((msg)));
+			
         }
     });
     return;

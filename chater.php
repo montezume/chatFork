@@ -14,12 +14,19 @@ $requestType = htmlentities($_POST['request_type']);
 switch ($requestType) {
 
 	case 'retrieve' :
-		// fix this
+		// User needs to be logged in to use this function.
 		
-		$lastId = $_REQUEST['last_Id'];
-		echo (json_encode($messageDAO->retrieve($lastId), JSON_FORCE_OBJECT));
+		if ($_SESSION['user']) {
+			$lastId = $_REQUEST['last_Id'];
+			var_dump($messageDAO->retrive($lastId));
+			
+			//echo (json_encode($messageDAO->retrieve($lastId), JSON_FORCE_OBJECT));
+		}
+		else {
+			echo 'Not logged in';
+		}
 		break;
-
+		
 	case 'checkUser' :
 		$username = htmlentities($_REQUEST['name']);
 		echo ($userDAO->validateUsername($username)) ? 1 : -1;
