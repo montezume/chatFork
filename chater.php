@@ -18,9 +18,8 @@ switch ($requestType) {
 		
 		if ($_SESSION['user']) {
 			$lastId = $_REQUEST['last_Id'];
-			var_dump($messageDAO->retrive($lastId));
 			
-			//echo (json_encode($messageDAO->retrieve($lastId), JSON_FORCE_OBJECT));
+			echo ($messageDAO->retrieve($lastId));
 		}
 		else {
 			echo 'Not logged in';

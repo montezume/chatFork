@@ -26,8 +26,20 @@ class MessageDAO {
 			$stmt->bindParam(1, $lastId);
 			$stmt->execute();
 			
-			$messages = $stmt->fetchAll(PDO::FETCH_COLUMN, 1);
-			return $messages;
+			$messages = $stmt->fetchAll();
+			
+			$jsonArray = array();
+			
+			foreach($messages as $value) {
+			
+				$jsonArray[] = array('msg_id' => $value['MESSAGE_ID'], 
+				'content' => $value['CONTENT'], 
+				'user_id' => $value['USER_ID'] );
+			}
+					
+			$json = json_encode($jsonArray);
+			
+			return $json;
 		}
 
 		

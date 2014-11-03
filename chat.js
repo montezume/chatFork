@@ -11,8 +11,9 @@ function init() {
 	
 	// continuously get messages.
 	
-	alert(retrieveMessages(0));
-	
+	retrieveMessages(0);
+}
+
 	function retrieveMessages(lastId) {
 	
 	$.ajax({
@@ -20,19 +21,19 @@ function init() {
         type: "POST",
         url: "chater.php",
         data: {
-            request_type: 'retrieve',
-			last_Id : lastId
+            'request_type': 'retrieve',
+			'last_Id' : lastId
         },
-        dataType: 'json',
         async: true,
         success: function(msg) {
-			alert(JSON.parse((msg)));
+		
+		var jsonShit = $.parseJSON(msg);
+		alert(jsonShit[0].content);
+					
 			
         }
     });
     return;
 }
 
-	
-}
 window.onload = init;
