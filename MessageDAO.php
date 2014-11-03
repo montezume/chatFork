@@ -32,7 +32,8 @@ class MessageDAO {
 			
 			foreach($messages as $value) {
 			
-				$jsonArray[] = array('msg_id' => $value['MESSAGE_ID'], 
+				$jsonArray[] = array(
+				'msg_id' => $value['MESSAGE_ID'], 
 				'content' => $value['CONTENT'], 
 				'user_id' => $value['USER_ID'],
 				'username' => $value['USERNAME'],
@@ -59,7 +60,8 @@ class MessageDAO {
 			
 			foreach($messages as $value) {
 			
-				$jsonArray[] = array('msg_id' => $value['MESSAGE_ID'], 
+				$jsonArray[] = array(
+				'msg_id' => $value['MESSAGE_ID'], 
 				'content' => $value['CONTENT'], 
 				'user_id' => $value['USER_ID'],
 				'username' => $value['USERNAME'],

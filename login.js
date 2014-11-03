@@ -2,11 +2,11 @@
 function init() {
 
 		// check to see if user is logged in, if so redirect.
-		/*
+		
 		if ($.cookie('login')) {
 			window.location.replace("index.html");
 		}
-		*/
+		
 		
 		$("#registerCheck").change(function() {
             if (this.checked) {
@@ -141,7 +141,7 @@ function onRegister(usernameBox, passwordBox, emailBox) {
 				$.cookie('login', msg);
 				alert('account created');
 				
-				//window.location.replace("index.html");
+				window.location.replace("index.html");
 
             } else {
 				$('.registerAlert').html('Register failed... try again?').css('color', 'red');
