@@ -13,6 +13,19 @@ $requestType = htmlentities($_POST['request_type']);
 
 switch ($requestType) {
 
+	case 'retrieveLastFive' :
+		// User needs to be logged in to use this function.
+		
+		if ($_SESSION['user']) {
+			echo ($messageDAO->retrieveMessages(5));
+		}
+		else {
+			echo false;
+		}
+		break;
+
+
+
 	case 'retrieve' :
 		// User needs to be logged in to use this function.
 		
@@ -22,7 +35,7 @@ switch ($requestType) {
 			echo ($messageDAO->retrieve($lastId));
 		}
 		else {
-			echo 'Not logged in';
+			echo false;
 		}
 		break;
 		

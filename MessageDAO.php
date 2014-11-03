@@ -47,14 +47,29 @@ class MessageDAO {
 		
 		function retrieveMessages($minutes) {
 	
-			$query = "select user_id, content from message where ts > DATE_SUB(now(), INTERVAL 5 MINUTE);";
+			$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_CREATED, USERNAME FROM MESSAGE natural join USER where DATE_CREATED > DATE_SUB(now(), INTERVAL 5 MINUTE);";
 			
 			$stmt = $this->pdo->prepare($query);
-			$stmt->bindParam(1, $minutes);
+			$stmt->bindParam(1, $lastId);
 			$stmt->execute();
 			
-			$messages = $stmt->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
-			return array_map('reset', $messages);
+			$messages = $stmt->fetchAll();
+			
+			$jsonArray = array();
+			
+			foreach($messages as $value) {
+			
+				$jsonArray[] = array('msg_id' => $value['MESSAGE_ID'], 
+				'content' => $value['CONTENT'], 
+				'user_id' => $value['USER_ID'],
+				'username' => $value['USERNAME'],
+				'date' => $value['DATE_CREATED']);
+			}
+					
+			$json = json_encode($jsonArray);
+			
+			return $json;
+
 		}
 		
 		

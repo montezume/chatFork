@@ -1,6 +1,8 @@
 function init() {
 	window.lastId = 0;
 	
+	// need to somehow have my own user_id
+	
 	/*
 	if (!$.cookie('login')) {
 		window.location.replace("login.html");
@@ -11,8 +13,47 @@ function init() {
 	
 	// continuously get messages.
 	
-	retrieveMessages(0);
+	retrieveLastFiveMinutes();
 }
+
+	function retrieveLastFiveMinutes() {
+		$.ajax({
+
+        type: "POST",
+        url: "chater.php",
+        data: {
+            'request_type': 'retrieveLastFive',
+        },
+		
+        async: true,
+        success: function(msg) {
+		
+		if (msg) {
+			alert(msg);
+			// if messages are returned, add them to table.
+			var jsonReturned = $.parseJSON(msg);
+			var returnedHtml = '';
+			//alert(jsonReturned[1].username);
+			
+			for (var i = 0; i < jsonReturned.length; i++) {
+				returnedHtml += '<tr><td>' + jsonReturned[i].username + '</td> <td>' + 
+					jsonReturned[i].content + '</td> <td>' + jsonReturned[i].date + '</td>';
+				returnedHtml += '</tr>';			
+			}
+			
+			$("#chatTable").append(returnedHtml);
+
+		}
+		
+		else {
+			// no messages yall
+		}
+			
+        }
+    });
+    return;
+}
+
 
 	function retrieveMessages(lastId) {
 	

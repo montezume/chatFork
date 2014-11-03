@@ -15,7 +15,7 @@ class UserDAO {
 			echo $e;
 			}
 		}
-	
+		
 	function login($username, $password) {
 		$hashPass = hash('sha512', $password);
 
