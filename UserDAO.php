@@ -1,5 +1,8 @@
 <?php
+
 class UserDAO {
+	// session start
+
 	private $pdo;
 	
 	function __construct() {
