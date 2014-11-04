@@ -93,7 +93,7 @@ function onLogin(usernameBox, passwordBox) {
 	$.ajax({
 
         type: "POST",
-        url: "chater.php",
+        url: "ChatController.php",
         data: {
             request_type: 'login',
             name: usernameBox.val(),
@@ -125,7 +125,7 @@ function onRegister(usernameBox, passwordBox, emailBox) {
 	    $.ajax({
 
         type: "POST",
-        url: "chater.php",
+        url: "ChatController.php",
         data: {
             request_type: 'register',
             name: usernameBox.val(),
@@ -169,7 +169,7 @@ function onFocusOut(requestType, inputBox, errorField) {
     $.ajax({
 
         type: "POST",
-        url: "chater.php",
+        url: "ChatController.php",
         data: {
             request_type: requestType,
             name: inputBox.val()
