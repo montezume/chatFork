@@ -1,6 +1,6 @@
 function init() {
 	// set global vars.
-	window.lastId = 0;
+	window.lastId = -1;
 	getUserId();
 		
 	if ($.cookie('login') == null) {
@@ -9,8 +9,6 @@ function init() {
 	
 	retrieveLastFiveMinutes();
 	
-	window.setInterval(retrieveMessages, 2000);
-	window.setInterval(getOnlineUsers, 2000);
 
 	// TODO add send functionality.
 	
@@ -117,17 +115,28 @@ function init() {
 			//alert(jsonReturned[1].username);
 			
 			for (var i = 0; i < jsonReturned.length; i++) {
-			
-				returnedHtml += '<tr><td>' + jsonReturned[i].username + '</td> <td>' + 
-					jsonReturned[i].content + '</td> <td>' + jsonReturned[i].date + '</td>';
+				if (jsonReturned[i].user_id = window.userId) {
+					alert('inif');
+					returnedHtml += "<tr><td style='color:red;'>";
+				}
+				else {
+					returnHtml += '<tr><td>'
+				}
+				
+				alert(window.userId);
+				returnedHtml += jsonReturned[i].username + '</td> <td>' + 
+					jsonReturned[i].content + "</td> <td>" + jsonReturned[i].date + '</td>';
 				returnedHtml += '</tr>';		
 			}
 			
 			// grab last message id, and update global variable.
 			
-			window.lastId = jsonReturned[0].msg_id;
+			window.lastId = jsonReturned[jsonReturned.length -1].msg_id;
+			alert(window.lastId);
 			$("#chatTable").append(returnedHtml);
 			$("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
+		window.setInterval(retrieveMessages, 2000);
+		window.setInterval(getOnlineUsers, 2000);
 
 		}
 		
@@ -159,6 +168,7 @@ function init() {
 			
 			for (var i = 0; i < jsonReturned.length; i++) {
 				
+				
 				returnedHtml += '<tr><td>' + jsonReturned[i].username + '</td> <td>' + 
 					jsonReturned[i].last_active + '</td> <td>';
 				returnedHtml += '</tr>';			
@@ -179,7 +189,8 @@ function init() {
 	}
 
 	function retrieveMessages() {
-	
+	//alert('last id' + window.lastId);
+
 	$.ajax({
 
         type: "POST",
@@ -200,7 +211,15 @@ function init() {
 			//alert(jsonReturned[1].username);
 			
 			for (var i = 0; i < jsonReturned.length; i++) {
-				returnedHtml += '<tr><td>' + jsonReturned[i].username + '</td> <td>' + 
+				
+					if (jsonReturned[i].user_id = window.userId) {
+					returnedHtml += "<tr><td style='color:red;'>";
+				}
+				else {
+					returnHtml += '<tr><td>'
+				}
+
+				returnedHtml += jsonReturned[i].username + '</td> <td>' + 
 					jsonReturned[i].content + '</td> <td>' + jsonReturned[i].date + '</td>';
 				returnedHtml += '</tr>';			
 			}
@@ -209,6 +228,7 @@ function init() {
 			if (jsonReturned.length != 0) {
 				window.lastId = jsonReturned[(jsonReturned.length - 1)].msg_id;
 			}
+			
 			$("#chatTable").append(returnedHtml);
 			
 			$("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);

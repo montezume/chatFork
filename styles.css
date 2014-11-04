@@ -7,12 +7,16 @@
 
 body, html {
     text-align: center;
- /*For IE6 compatibility*/
     height: 100%;
     margin: 0;
     padding: 0;
     background-image: url(assets/texture.png);
     background-repeat: repeat;
+}
+
+header, footer {
+	display: block;
+	text-align: center;
 }
 
 #wrapper {
@@ -31,17 +35,22 @@ body, html {
 }
 
 #chatBox {
+    height: 600px;
 }
 
 #chatDiv {
-    height: 200px;
+	position: relative;
     overflow-y: scroll;
+	height:600px;
     display: block;
     float: left;
-    width: 50%;
+    width: 60%;
 }
 
-#userTitle {
+#userHeading {
+	margin-left:30px;
+	position: relative;
+	width: 30%;
     float: left;
     display: block;
 }
@@ -55,15 +64,10 @@ body, html {
     clear: left;
 }
 
-#footer {
-    margin-top: 40px;
-    clear: left;
-}
 
 td, th {
     text-align: left;
-    padding-right: 10px;
-    ;
+    
 }
 
 #connectButton {

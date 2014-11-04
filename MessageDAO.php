@@ -25,7 +25,7 @@ class MessageDAO {
 
 		function retrieve($lastId) {
 	
-			$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_CREATED, USERNAME FROM MESSAGE natural join USER where MESSAGE_ID > ? ;";
+			$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_FORMAT(DATE_CREATED, '%h:%i:%s %p') AS DATE_CREATED, USERNAME FROM MESSAGE natural join USER where MESSAGE_ID > ? ;";
 			
 			$stmt = $this->pdo->prepare($query);
 			$stmt->bindParam(1, $lastId);
@@ -51,8 +51,8 @@ class MessageDAO {
 		}
 		
 		function retrieveMessages() {
-	
-			$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_CREATED, USERNAME FROM MESSAGE natural join USER where DATE_CREATED > DATE_SUB(now(), INTERVAL 5 MINUTE);";
+				
+			$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_FORMAT(DATE_CREATED, '%h:%i:%s %p') AS DATE_CREATED, USERNAME FROM MESSAGE natural join USER where DATE_CREATED > DATE_SUB(now(), INTERVAL 5 MINUTE);";
 			
 			$stmt = $this->pdo->prepare($query);
 			$stmt->execute();
@@ -60,11 +60,11 @@ class MessageDAO {
 			$messages = $stmt->fetchAll();
 			
 			if (count($messages) == 0) {
-				$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_CREATED, USERNAME FROM MESSAGE natural join USER order by message_id desc limit 5;";
+				$flipped = true;
+				$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_FORMAT(DATE_CREATED, '%h:%i:%s %p') AS DATE_CREATED, USERNAME FROM MESSAGE natural join USER order by message_id desc limit 1;";
 				$stmt = $this->pdo->prepare($query);
 				$stmt->execute();
 				$messages = $stmt->fetchAll();
-
 			}			
 			
 			$jsonArray = array();
@@ -78,7 +78,7 @@ class MessageDAO {
 				'username' => $value['USERNAME'],
 				'date' => $value['DATE_CREATED']);
 			}
-					
+
 			$json = json_encode($jsonArray);
 			
 			return $json;
