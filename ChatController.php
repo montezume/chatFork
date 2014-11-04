@@ -6,7 +6,9 @@ require 'UserDAO.php';
 require 'MessageDAO.php';
 
 // Start the session.
-$_SESSION['user'] = null;
+if (!$_SESSION['user']) {
+	$_SESSION['user'] = '-1';
+}
 $_SESSION['test'] = 'flowers';
 
 $userDAO    = new UserDAO();
@@ -51,7 +53,7 @@ switch ($requestType) {
         }
     case 'retrieveUserId':
 		
-		echo $_SESSION['test'];
+		echo $_SESSION['user'];
 		// User must be authenticated
         if ($_SESSION['user'] != null) {
             $username = $_SESSION['user'];

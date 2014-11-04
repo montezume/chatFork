@@ -102,6 +102,7 @@ function onLogin(usernameBox, passwordBox) {
         dataType: "html",
         async: true,
         success: function(msg) {
+			alert(msg);
 			if (msg != -1) {
 				window.location.href = 'index.html';
 
