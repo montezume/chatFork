@@ -102,10 +102,8 @@ function onLogin(usernameBox, passwordBox) {
         dataType: "html",
         async: true,
         success: function(msg) {
-			if (msg) {
-				// set return as login cookie
-				//$.removeCookie('login', { path : '/' });
-				window.location.replace("index.html");
+			if (msg != -1) {
+				window.location.href = 'index.html';
 
             } else {
 				$('.registerAlert').html('Invalid username or password').css('color', 'red');

@@ -1,11 +1,13 @@
  <?php
 
+session_start();
+
 require 'UserDAO.php';
 require 'MessageDAO.php';
 
-// start the session
-session_start();
+// Start the session.
 $_SESSION['user'] = null;
+$_SESSION['test'] = 'flowers';
 
 $userDAO    = new UserDAO();
 $messageDAO = new MessageDAO();
@@ -48,12 +50,15 @@ switch ($requestType) {
             echo -1;
         }
     case 'retrieveUserId':
-        // User must be authenticated
+		
+		echo $_SESSION['test'];
+		// User must be authenticated
         if ($_SESSION['user'] != null) {
             $username = $_SESSION['user'];
             echo $userDAO->getUserId($username);
         } else {
-            echo false;
+			// User is not authenticated.
+            echo -1;
         }
         break;
     
@@ -68,7 +73,7 @@ switch ($requestType) {
         }
         
         else {
-            echo false;
+            echo -1;
         }
         break;
     
@@ -82,7 +87,7 @@ switch ($requestType) {
             
             echo ($messageDAO->retrieve($lastId));
         } else {
-            echo false;
+            echo -1;
         }
         break;
     
@@ -98,7 +103,6 @@ switch ($requestType) {
         break;
     
     case 'login':
-        
         $username = htmlentities($_REQUEST['name']);
         $password = htmlentities($_REQUEST['password']);
         
@@ -108,7 +112,7 @@ switch ($requestType) {
             $_SESSION['user'] = $username;
             echo $_SESSION['user'];
         } else {
-            echo false;
+            echo -1;
         }
         break;
     

@@ -63,7 +63,6 @@ class UserDAO {
 		$stmt->bindParam(1, $username);
 		$stmt->execute();
 		$returnedPassword = $stmt->fetchColumn(0);
-
 		return ($returnedPassword === $hashPass);
 		
 	}

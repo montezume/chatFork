@@ -1,7 +1,8 @@
 function init() {
     // set global vars.
     window.lastId = -1;
-    getUserId();
+    // Make sure user is authenticated, and grab his user id.
+	getUserId();
 
     /*
 	if ($.cookie('login') == null) {
@@ -57,11 +58,13 @@ function getUserId() {
         dataType: "html",
         async: true,
         success: function(msg) {
-            if (msg) {
+			alert(msg);
+            if (msg != -1) {
                 window.userId = parseInt(msg);
             } else {
-                //redirect as not logged in.
-            }
+				//window.location.replace("\login.html");
+
+			}
 
         }
     });
