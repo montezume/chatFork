@@ -3,10 +3,12 @@ function init() {
 
 		// check to see if user is logged in, if so redirect.
 		
-		if (!$.cookie('login')) {
+		/*
+		if ($.cookie('login' != null)) {
+			alert(it' snot null);
 			window.location.replace("index.html");
 		}
-		
+		*/
 		
 		$("#registerCheck").change(function() {
             if (this.checked) {
@@ -102,7 +104,7 @@ function onLogin(usernameBox, passwordBox) {
         success: function(msg) {
 			if (msg) {
 				// set return as login cookie
-				$.removeCookie('login', { path : '/' });
+				//$.removeCookie('login', { path : '/' });
 				window.location.replace("index.html");
 
             } else {

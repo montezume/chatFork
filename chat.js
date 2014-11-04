@@ -2,11 +2,12 @@ function init() {
 	// set global vars.
 	window.lastId = -1;
 	getUserId();
-		
+	
+	/*
 	if ($.cookie('login') == null) {
 		window.location.replace("login.html");
 	}
-	
+	*/
 	retrieveLastFiveMinutes();
 	
 
@@ -31,7 +32,7 @@ function init() {
         dataType: "html",
         async: true,
         success: function(msg) {
-			$.cookie('login', null, { path: '/' })
+			//$.cookie('login', null, { path: '/' })
 			window.location.replace("login.html");
         }
     });
@@ -123,7 +124,6 @@ function init() {
 					returnHtml += '<tr><td>'
 				}
 				
-				alert(window.userId);
 				returnedHtml += jsonReturned[i].username + '</td> <td>' + 
 					jsonReturned[i].content + "</td> <td>" + jsonReturned[i].date + '</td>';
 				returnedHtml += '</tr>';		
@@ -132,20 +132,23 @@ function init() {
 			// grab last message id, and update global variable.
 			
 			window.lastId = jsonReturned[jsonReturned.length -1].msg_id;
-			alert(window.lastId);
 			$("#chatTable").append(returnedHtml);
 			$("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
-		window.setInterval(retrieveMessages, 2000);
-		window.setInterval(getOnlineUsers, 2000);
+			
 
 		}
 		
 		else {
 			// if no messages were returned, do something. must update last message id.
+			
 		}
 			
         }
     });
+	
+	window.setInterval(retrieveMessages, 2000);
+	window.setInterval(getOnlineUsers, 2000);
+
     return;
 }
 

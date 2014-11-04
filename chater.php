@@ -41,14 +41,18 @@ switch ($requestType) {
 		// User needs to be logged in to use this function.
 		
 		if ($_SESSION['user']) {
-			echo ($messageDAO->retrieveMessages());
-		}
+			
+			$lastFiveMessages = $messageDAO->retrieveMessages();
+				echo $lastFiveMessages;
+			}
+	
+		
 		else {
 			echo false;
 		}
 		break;
 
-
+	
 
 	case 'retrieve' :
 		// User needs to be logged in to use this function.
