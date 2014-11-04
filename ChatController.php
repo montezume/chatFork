@@ -5,11 +5,10 @@ session_start();
 require 'UserDAO.php';
 require 'MessageDAO.php';
 
-// Start the session.
+
 if (!$_SESSION['user']) {
-	$_SESSION['user'] = '-1';
+	$_SESSION['user'] = -1;
 }
-$_SESSION['test'] = 'flowers';
 
 $userDAO    = new UserDAO();
 $messageDAO = new MessageDAO();
@@ -23,7 +22,7 @@ switch ($requestType) {
     case 'getOnlineUsers':
         
         // User must be signed in to use this function.
-        if ($_SESSION['user'] != null) {
+        if ($_SESSION['user'] != -1) {
             echo $userDAO->getActiveUsers();
         } else {
             // User is not authenticated.
@@ -42,20 +41,20 @@ switch ($requestType) {
      */
     case 'sendMessage':
         // User must be authenticated
-        if ($_SESSION['user'] != null) {
+        if ($_SESSION['user'] != -1) {
             $userId  = htmlentities($_REQUEST['user_Id']);
             $content = htmlentities($_REQUEST['content']);
             $messageDAO->createMessage($userId, $content);
             $userDAO->updateLastActive($userId);
             echo true;
+			break;
         } else {
             echo -1;
+			break;
         }
     case 'retrieveUserId':
-		
-		echo $_SESSION['user'];
 		// User must be authenticated
-        if ($_SESSION['user'] != null) {
+        if ($_SESSION['user'] != -1) {
             $username = $_SESSION['user'];
             echo $userDAO->getUserId($username);
         } else {
@@ -70,21 +69,20 @@ switch ($requestType) {
     case 'retrieveLastFive':
         
         // User needs to be authenticated to use this function.
-        if ($_SESSION['user'] != null) {
+        if ($_SESSION['user'] != -1) {
             echo ($messageDAO->retrieveMessages());
+			break;
         }
         
         else {
             echo -1;
-        }
-        break;
-    
-    
+			break;
+        }    
     
     case 'retrieve':
         // User needs to be logged in to use this function.
         
-        if ($_SESSION['user'] != null) {
+        if ($_SESSION['user'] != -1) {
             $lastId = $_REQUEST['last_Id'];
             
             echo ($messageDAO->retrieve($lastId));

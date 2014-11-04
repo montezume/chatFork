@@ -58,12 +58,11 @@ function getUserId() {
         dataType: "html",
         async: true,
         success: function(msg) {
-			alert(msg);
             if (msg != -1) {
                 window.userId = parseInt(msg);
             } else {
-				//window.location.replace("\login.html");
-
+				// user is not logged in, so redirect to login.
+				window.location.replace("login.html");
 			}
 
         }
@@ -74,35 +73,40 @@ function getUserId() {
 
 function sendMessage() {
 
-
-    var message = $("#messageBox").val();
-    if (message == "") {
+    var messageBox = $("#messageBox")
+    
+	// if message box is blank, don't send message.
+	if (messageBox.val() == "") {
         return;
     }
-
+	
     $.ajax({
 
         type: "POST",
         url: "ChatController.php",
         data: {
             request_type: 'sendMessage',
-            content: message,
+            content: messageBox.val(),
             user_Id: window.userId
         },
         dataType: "html",
         async: true,
         success: function(msg) {
             if (msg != -1) {
-                // message was sent.
-                alert('test');
+                // Message was successfully sent to the server.
             } else {
                 // Message was not sent. 
                 // User is probably not authenticated.
+				// Redirect to login again.
                 window.location.replace("login.html");
             }
 
         }
     });
+	// empty message box.
+
+	messageBox.val("");
+
     return;
 }
 
@@ -118,39 +122,30 @@ function retrieveLastFiveMinutes() {
 
         async: true,
         success: function(msg) {
-
+	
             if (msg != -1) {
                 // if messages are returned, add them to table.
                 var jsonReturned = $.parseJSON(msg);
                 var returnedHtml = '';
-                //alert(jsonReturned[1].username);
 
                 for (var i = 0; i < jsonReturned.length; i++) {
-                    if (jsonReturned[i].user_id = window.userId) {
-                        alert('inif');
-                        returnedHtml += "<tr><td style='color:red;'>";
-                    } else {
-                        returnHtml += '<tr><td>'
-                    }
-
-                    returnedHtml += jsonReturned[i].username + '</td> <td>' +
-                        jsonReturned[i].content + "</td> <td>" + jsonReturned[i].date + '</td>';
-                    returnedHtml += '</tr>';
+					returnedHtml += '<tr><td>';
+                    returnedHtml += jsonReturned[i].username + '</td> <td>' + jsonReturned[i].content + "</td> <td>" + jsonReturned[i].date + '</td></tr>';
                 }
 
                 // grab last message id, and update global variable.
-
+				
                 window.lastId = jsonReturned[jsonReturned.length - 1].msg_id;
                 $("#chatTable").append(returnedHtml);
                 $("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
             } else {
-                // if no messages were returned, do something. must update last message id.
-
+				// user is not logged in, so redirect to login.
+				window.location.replace("login.html");
             }
 
         }
     });
-
+	// Add events to continuously check for online users and new messages.
     window.setInterval(retrieveMessages, 2000);
     window.setInterval(getOnlineUsers, 2000);
 
@@ -167,7 +162,7 @@ function getOnlineUsers() {
         },
         async: true,
         success: function(msg) {
-            if (msg) {
+            if (msg != -1) {
 
                 // if messages are returned, add them to table.
                 var jsonReturned = $.parseJSON(msg);
@@ -185,7 +180,8 @@ function getOnlineUsers() {
                 returnedHtml += '</table>';
                 $("#users").html(returnedHtml);
             } else {
-                // no messages yall
+				// user is not logged in, so redirect to login.
+				window.location.replace("login.html");
             }
 
         }
@@ -195,6 +191,11 @@ function getOnlineUsers() {
 }
 
 function retrieveMessages() {
+
+	if (window.lastId == -1) {
+		return;
+	}
+
     //alert('last id' + window.lastId);
 
     $.ajax({
@@ -208,8 +209,7 @@ function retrieveMessages() {
         async: true,
         success: function(msg) {
 
-            if (msg) {
-
+            if (msg != -1) {
 
                 // if messages are returned, add them to table.
                 var jsonReturned = $.parseJSON(msg);
@@ -218,15 +218,8 @@ function retrieveMessages() {
 
                 for (var i = 0; i < jsonReturned.length; i++) {
 
-                    if (jsonReturned[i].user_id = window.userId) {
-                        returnedHtml += "<tr><td style='color:red;'>";
-                    } else {
-                        returnHtml += '<tr><td>'
-                    }
-
-                    returnedHtml += jsonReturned[i].username + '</td> <td>' +
-                        jsonReturned[i].content + '</td> <td>' + jsonReturned[i].date + '</td>';
-                    returnedHtml += '</tr>';
+					returnedHtml += '<tr><td>';
+                    returnedHtml += jsonReturned[i].username + '</td> <td>' + jsonReturned[i].content + "</td> <td>" + jsonReturned[i].date + '</td></tr>';
                 }
                 // grab last message id, and update global variable.
 
@@ -238,7 +231,8 @@ function retrieveMessages() {
 
                 $("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
             } else {
-                // no messages yall
+				// user is not logged in, so redirect to login.
+				window.location.replace("login.html");
             }
 
         }
