@@ -56,15 +56,14 @@ class UserDAO {
 
 	}
 	function login($username, $password) {
-		$hashPass = hash('sha512', $password);
-
+		
 		$query = "SELECT password FROM USER WHERE username = ?";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(1, $username);
 		$stmt->execute();
 		$returnedPassword = $stmt->fetchColumn(0);
-		return ($returnedPassword === $hashPass);
 		
+		return(password_verify($password, $returnedPassword));		
 	}
 	
 	function createUser($username, $password, $email) {
@@ -74,9 +73,7 @@ class UserDAO {
 			return false;
 		}
 		
-		// Hash password.
-		
-		$hashPass = hash('sha512', $password);
+		$hashPass = password_hash($password, PASSWORD_BCRYPT);
 		
 		$query = "INSERT into USER (username, password, email) VALUES (?, ?, ?);";
 		$stmt = $this->pdo->prepare($query);
