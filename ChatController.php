@@ -5,8 +5,6 @@ session_start();
 require 'UserDAO.php';
 require 'MessageDAO.php';
 
-require_once('createTables.php');
-
 if (!$_SESSION['user']) {
 	$_SESSION['user'] = -1;
 }
