@@ -4,19 +4,7 @@ function init() {
     // Make sure user is authenticated, and grab his user id.
 	getUserId();
 
-    /*
-	if ($.cookie('login') == null) {
-		window.location.replace("login.html");
-	}
-	*/
     retrieveLastFiveMinutes();
-
-
-    // TODO add send functionality.
-
-    //$("#messageBox");
-
-    //let's get userid....
 
     //$("#messageBox").val('cal');
     $("#sendButton").click(function() {
