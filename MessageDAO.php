@@ -57,7 +57,7 @@ class MessageDAO {
 		 * Returns messages from the last five minutes, if no messages,
 		 * returns the most recent message.
 		 */
-		function retrieveMessages() {
+		function retrieveLastFiveMins() {
 				
 			$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_FORMAT(DATE_CREATED, '%h:%i:%s %p') AS DATE_CREATED, USERNAME FROM MESSAGE natural join USER where DATE_CREATED > DATE_SUB(now(), INTERVAL 5 MINUTE);";
 			$stmt = $this->pdo->prepare($query);

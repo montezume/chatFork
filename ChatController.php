@@ -5,10 +5,6 @@ session_start();
 require 'UserDAO.php';
 require 'MessageDAO.php';
 
-if (!$_SESSION['user']) {
-	$_SESSION['user'] = -1;
-}
-
 $userDAO    = new UserDAO();
 $messageDAO = new MessageDAO();
 
@@ -21,7 +17,7 @@ switch ($requestType) {
     case 'getOnlineUsers':
         
         // User must be signed in to use this function.
-        if ($_SESSION['user'] != -1) {
+		if (isset($_SESSION['user']) && $_SESSION['user'] != '') {
             echo $userDAO->getActiveUsers();
         } else {
             // User is not authenticated.
@@ -31,6 +27,9 @@ switch ($requestType) {
     
     // Logs out.
     case 'logout':
+		// destroy the session.
+		
+		
         if ($_SESSION['user']) {
             unset($_SESSION["user"]);
         }
@@ -40,7 +39,7 @@ switch ($requestType) {
      */
     case 'sendMessage':
         // User must be authenticated
-        if ($_SESSION['user'] != -1) {
+		if (isset($_SESSION['user']) && $_SESSION['user'] != '') {
             $userId  = htmlentities($_REQUEST['user_Id']);
             $content = htmlentities($_REQUEST['content']);
             $messageDAO->createMessage($userId, $content);
@@ -53,7 +52,7 @@ switch ($requestType) {
         }
     case 'retrieveUserId':
 		// User must be authenticated
-        if ($_SESSION['user'] != -1) {
+		if (isset($_SESSION['user']) && $_SESSION['user'] != '') {
             $username = $_SESSION['user'];
             echo $userDAO->getUserId($username);
         } else {
@@ -68,8 +67,8 @@ switch ($requestType) {
     case 'retrieveLastFive':
         
         // User needs to be authenticated to use this function.
-        if ($_SESSION['user'] != -1) {
-            echo ($messageDAO->retrieveMessages());
+		if (isset($_SESSION['user']) && $_SESSION['user'] != '') {
+            echo ($messageDAO->retrieveLastFiveMins());
 			break;
         }
         
@@ -81,11 +80,11 @@ switch ($requestType) {
     case 'retrieve':
         // User needs to be logged in to use this function.
         
-        if ($_SESSION['user'] != -1) {
-            $lastId = $_REQUEST['last_Id'];
-            
+		if (isset($_SESSION['user']) && $_SESSION['user'] != '') {
+		    $lastId = $_REQUEST['last_Id'];
             echo ($messageDAO->retrieve($lastId));
-        } else {
+		}
+		else {
             echo -1;
         }
         break;
@@ -108,6 +107,8 @@ switch ($requestType) {
         // if successful login, set session and return username
         
         if ($userDAO->login($username, $password)) {
+			// regen id.
+			session_regenerate_id(true);
             $_SESSION['user'] = $username;
             echo $_SESSION['user'];
         } else {
@@ -124,7 +125,8 @@ switch ($requestType) {
         // session id stuff - > create session
         
         if ($userDAO->createUser($username, $password, $email)) {
-            $_SESSION['user'] = $username;
+            session_regenerate_id(true);
+			$_SESSION['user'] = $username;
             echo $_SESSION['user'];
         }
         
