@@ -110,7 +110,11 @@ switch ($requestType) {
 			// regen id.
 			session_regenerate_id(true);
             $_SESSION['user'] = $username;
+			// update last active.
+			$userId = $userDAO->getUserId($username);
+			$userDAO->updateLastActive($userId);
             echo $_SESSION['user'];
+			
         } else {
             echo -1;
         }
@@ -127,6 +131,10 @@ switch ($requestType) {
         if ($userDAO->createUser($username, $password, $email)) {
             session_regenerate_id(true);
 			$_SESSION['user'] = $username;
+			// update last active.
+			$userId = $userDAO->getUserId($username);
+			$userDAO->updateLastActive($userId);
+
             echo $_SESSION['user'];
         }
         

@@ -123,42 +123,13 @@ function retrieveLastFiveMinutes() {
 	
             if (msg != -1) {
                 
-				
 				// if messages are returned, add them to table.
                 var jsonReturned = $.parseJSON(msg);
-                var userHtml = '';
-				var messageHtml = '';
-				var timeHtml = '';
-				
-				
-				if (jsonReturned.length != 0) {
-				
-                for (var i = 0; i < jsonReturned.length; i++) {
-					
-					var userHtml = "<strong class='primary-font'>jsonReturned[i].username</strong>";
-					var timeHtml = "<small class='pull-right text-muted'>" + 
-                                    "<span class='glyphicon glyphicon-time'></span>jsonReturned[i].date</small>"
-					
-					var messageHtml = "";
-
-				}
-
-                // grab last message id, and update global variable.
-				
-                window.lastId = jsonReturned[jsonReturned.length - 1].msg_id;
-				}
-				
-				// else no messages exist in database, so set last message id to 0.
-				else {
-					window.lastId = 0;
-				}
-                $("#chatTable").append(returnedHtml);
-                $("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
-				
+                insertMessages(jsonReturned, true);		
 				
 			} else {
 				// user is not logged in, so redirect to login.
-				window.location.replace("login.html");
+				//window.location.replace("login.html");
             }
 
         }
@@ -170,6 +141,42 @@ function retrieveLastFiveMinutes() {
     return;
 }
 
+function insertMessages(jsonReturned, firstTime) {
+				var htmlMessages = '';
+				
+				if (jsonReturned.length != 0) {
+				
+                for (var i = 0; i < jsonReturned.length; i++) {
+					var messageBody = "<li><div class='chat-body'><div class='header'>";
+
+					var userHtml = "<strong class='primary-font'>" + jsonReturned[i].username + "</strong>";
+					var timeHtml = "<small class='pull-right text-muted'>" + 
+                                    "<span class='glyphicon glyphicon-time'></span>" + jsonReturned[i].date + '</small>';
+					var messageHtml = "<p>" + jsonReturned[i].content + "</p>";
+
+					messageBody += userHtml;
+					messageBody += timeHtml;
+					messageBody += "</div>"
+					messageBody += messageHtml;
+					messageBody += "</div></li>";
+					htmlMessages += messageBody;
+				}
+				// grab last message id, and update global variable.
+				
+                window.lastId = jsonReturned[jsonReturned.length - 1].msg_id;
+				alert(window.lastId);
+				
+				// else no messages exist in database, so set last message id to 0.
+				}
+				
+				else {
+					if (firstTime) {
+					window.lastId = 0;
+					}
+				}
+                $("#chatList").append(htmlMessages);
+                //$("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
+	}
 function getOnlineUsers() {
     $.ajax({
 
@@ -181,21 +188,16 @@ function getOnlineUsers() {
         async: true,
         success: function(msg) {
             if (msg != -1) {
-
+				//alert(msg);
                 // if messages are returned, add them to table.
                 var jsonReturned = $.parseJSON(msg);
-                var returnedHtml = '<table>';
+                var returnedHtml = '';
                 //alert(jsonReturned[1].username);
 
                 for (var i = 0; i < jsonReturned.length; i++) {
-
-
-                    returnedHtml += '<tr><td>' + jsonReturned[i].username + '</td> <td>' +
-                        jsonReturned[i].last_active + '</td> <td>';
-                    returnedHtml += '</tr>';
+                    returnedHtml += '<li>' + jsonReturned[i].username + '</li>';
+                    returnedHtml += '';
                 }
-
-                returnedHtml += '</table>';
                 $("#users").html(returnedHtml);
             } else {
 				// user is not logged in, so redirect to login.
@@ -228,24 +230,10 @@ function retrieveMessages() {
         success: function(msg) {
 
             if (msg != -1) {
-
-                // if messages are returned, add them to table.
+				// if messages are returned, add them to table.
                 var jsonReturned = $.parseJSON(msg);
-                var returnedHtml = '';
-                //alert(jsonReturned[1].username);
+                insertMessages(jsonReturned);		
 
-                for (var i = 0; i < jsonReturned.length; i++) {
-
-					returnedHtml += '<tr><td>';
-                    returnedHtml += jsonReturned[i].username + '</td> <td>' + jsonReturned[i].content + "</td> <td>" + jsonReturned[i].date + '</td></tr>';
-                }
-                // grab last message id, and update global variable.
-
-                if (jsonReturned.length != 0) {
-                    window.lastId = jsonReturned[(jsonReturned.length - 1)].msg_id;
-					$("#chatTable").append(returnedHtml);
-					$("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
-                }
 
             } else {
 				// user is not logged in, so redirect to login.
