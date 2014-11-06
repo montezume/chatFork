@@ -8,15 +8,13 @@ function init() {
 
     retrieveLastFiveMinutes();
 
-    //$("#messageBox").val('cal');
 	
-	/*
+	
     $("#sendButton").click(function() {
         sendMessage();
         return false
     });
 	
-	*/
 	
     $("#logoutButton").click(function() {
         logout();
@@ -71,10 +69,11 @@ function getUserId() {
 
 function sendMessage() {
 
-    var messageBox = $("#messageBox")
-    
+    var inputMessage = $("#inputMessage")
+    window.clearInterval(retrieveMessages);
 	// if message box is blank, don't send message.
-	if (messageBox.val() == "") {
+	if (inputMessage.val().trim() == "") {
+		inputMessage.val("");
         return;
     }
 	
@@ -84,7 +83,7 @@ function sendMessage() {
         url: "ChatController.php",
         data: {
             request_type: 'sendMessage',
-            content: messageBox.val(),
+            content: inputMessage.val(),
             user_Id: window.userId
         },
         dataType: "html",
@@ -102,8 +101,8 @@ function sendMessage() {
         }
     });
 	// empty message box.
-
-	messageBox.val("");
+	window.setInterval(retrieveMessages, 1000);
+	inputMessage.val("");
 
     return;
 }
@@ -135,9 +134,8 @@ function retrieveLastFiveMinutes() {
         }
     });
 	// Add events to continuously check for online users and new messages.
-    window.setInterval(retrieveMessages, 2000);
-    window.setInterval(getOnlineUsers, 2000);
-
+    window.setInterval(retrieveMessages, 1000);
+    window.setInterval(getOnlineUsers, 1000);
     return;
 }
 
@@ -164,8 +162,9 @@ function insertMessages(jsonReturned, firstTime) {
 				// grab last message id, and update global variable.
 				
                 window.lastId = jsonReturned[jsonReturned.length - 1].msg_id;
-				alert(window.lastId);
-				
+				$("#chatList").append(htmlMessages);
+                $("#messageScrollable").scrollTop($("#messageScrollable")[0].scrollHeight);
+
 				// else no messages exist in database, so set last message id to 0.
 				}
 				
@@ -174,8 +173,6 @@ function insertMessages(jsonReturned, firstTime) {
 					window.lastId = 0;
 					}
 				}
-                $("#chatList").append(htmlMessages);
-                //$("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
 	}
 function getOnlineUsers() {
     $.ajax({
@@ -195,7 +192,7 @@ function getOnlineUsers() {
                 //alert(jsonReturned[1].username);
 
                 for (var i = 0; i < jsonReturned.length; i++) {
-                    returnedHtml += '<li>' + jsonReturned[i].username + '</li>';
+                    returnedHtml += "<li><p class='pull-left'>" + jsonReturned[i].username + '</p></li>';
                     returnedHtml += '';
                 }
                 $("#users").html(returnedHtml);
@@ -233,7 +230,6 @@ function retrieveMessages() {
 				// if messages are returned, add them to table.
                 var jsonReturned = $.parseJSON(msg);
                 insertMessages(jsonReturned);		
-
 
             } else {
 				// user is not logged in, so redirect to login.
