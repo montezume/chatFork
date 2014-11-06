@@ -192,7 +192,7 @@ function getOnlineUsers() {
                 //alert(jsonReturned[1].username);
 
                 for (var i = 0; i < jsonReturned.length; i++) {
-                    returnedHtml += "<li><p class='pull-left'>" + jsonReturned[i].username + '</p></li>';
+                    returnedHtml += "<li>" + jsonReturned[i].username + '</li>';
                     returnedHtml += '';
                 }
                 $("#users").html(returnedHtml);
