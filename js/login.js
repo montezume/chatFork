@@ -1,37 +1,37 @@
 
 function init() {
-		alert('testing');
-		/*
+		
 		$("#registerCheck").change(function() {
 			
-			if (this.checked) {
-				alert('checked');
-			}
-			
-			else {
-				alert('not checked');
-			}
-			/*
+		
             if (this.checked) {
                 //add event listeners to validate input.
+				/*
                 passwordBox.on("focusin", function() {
                     onFocusIn('passAlert');
                 });
+				*/
+				/*
                 passwordBox.on("focusout", function() {
                     onFocusOut('checkPass', $("#passwordBox"), '.passAlert')
                 });
-                usernameBox.on("focusin", function() {
+				/*
+                $("#inputUsername").on("focusin", function() {
                     onFocusIn('userAlert');
                 });
-                usernameBox.on("focusout", function() {
-                    onFocusOut('checkUser', $("#username"), '.userAlert')
+				
+				*/
+                $("#inputUsername").on("focusout", function() {
+                    onFocusOut('checkUser', $("#inputUsername"), $("#usernameDiv"), $("#usernameFeedback") );
                 });
+				/*
                 $("#loginTable").append(emailHtml);
 				emailBox = $("#emailBox");
                 $.cookie('registerCheck', '1');
                 return;
+				*/
             }
-			*/
+			
 			/*
             $(" #emailRow ").remove();
             passwordBox.off();
@@ -39,10 +39,10 @@ function init() {
 			$.cookie('registerCheck', '0');
 			onFocusIn('.userAlert');
             onFocusIn('.passAlert');
-            return;
-			
+			return;
+			*/
         });
-		*/
+		
 		
 		/*
         var usernameBox = $("#username");
@@ -138,22 +138,15 @@ function onFocusIn(alertBox) {
     $(alertBox).html('');
 }
 
-function onFocusOut(requestType, inputBox, errorField) {
+*/
 
-    switch (requestType) {
-        case 'checkUser':
-            $.cookie('username', inputBox.val());
-            break;
+function onFocusOut(requestType, inputBox, div, feedbackDiv) {
 
-        case 'checkPass':
-            $.cookie('password', inputBox.val());
-            break;
-    }
 
     $.ajax({
 
         type: "POST",
-        url: "ChatController.php",
+        url: "/ChatFork/ChatController.php",
         data: {
             request_type: requestType,
             name: inputBox.val()
@@ -161,17 +154,21 @@ function onFocusOut(requestType, inputBox, errorField) {
         dataType: "html",
         async: true,
         success: function(msg) {
+			//alert(msg);
             if (parseInt(msg) != -1) {
-				$(errorField).html('Valid').css('color', 'green');
-				
-            } else {
-                $(errorField).html('Invalid').css('color', 'red');
+				div.attr("class", "form-group has-success has-feedback");
+				feedbackDiv.append("<span style='padding-right:20px' class='glyphicon glyphicon-ok form-control-feedback'></span>");
 
+
+            } else {
+				div.attr("class", "form-group has-error has-feedback");
+				feedbackDiv.remove();
+				//div.attr("class", "form-group has-success");
             }
         }
     });
 
     return;
 }
-*/
+
 window.onload = init;
