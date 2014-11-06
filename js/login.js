@@ -1,11 +1,13 @@
+window.validPass = false;
+window.validUser = false;
 
 function init() {
 		
 		// start by unchecking register box.
-		
-		$("#registerCheck").change(function() {
+		$("#registerCheck").click(function() {
             if (this.checked) {
-                
+                onKeyUp('checkPass', $("#inputPassword"), $("#passwordDiv"), $("#passIcon") );
+				onKeyUp('checkUser', $("#inputUsername"), $("#usernameDiv"), $("#userIcon") );
 				//add event listeners to validate input.
 				
                 $("#inputPassword").keyup(function() {
@@ -18,18 +20,33 @@ function init() {
 				
 				// display email div.
 				$("#emailDiv").attr("class", "form-group");
+				// button should display Register.
+				$("#buttonText").text("Register");
+				// don't display login error.
+				$('#errorDiv').attr("class", "form-group hide");
+
+				
+				
                 return;
             }
 			else {
-			alert('not checked');
 			$("#emailDiv").attr("class", "form-group hide");
 			$("#inputPassword").off();
 			$("#inputUsername").off();
+			// change button text to Login.
+			$("#buttonText").text("Login");
+			
+			// remove validation for both fields.
+			
+			removeValidation( $("#inputUsername") , $("#usernameDiv"), $("userIcon") );
+			removeValidation( $("#inputPassword") , $("#passwordDiv"), $("passIcon") );
+
 			}
 			return;
         });
-		  
-	$( "#connectButton" ).click(function() { onConnectClick( $("#inputUsername"), $("#inputPassword"), $("#inputEmail") ); }  );
+		
+		
+		  $( "#connectButton" ).click(function(e) { onConnectClick( $("#inputUsername"), $("#inputPassword"), $("#inputEmail") );  }  );
 
     } // end init
 
@@ -37,9 +54,7 @@ function init() {
 	
 
 function onConnectClick(usernameBox, passwordBox, emailBox) {
-	
-	alert('test');
-	
+		
 	if ($('#registerCheck').is(":checked")) {
 		onRegister(usernameBox, passwordBox, emailBox);
 	}
@@ -52,7 +67,7 @@ function onConnectClick(usernameBox, passwordBox, emailBox) {
 	// either register or connect based on checkbox.
 	
 }
-/*
+
 
 function onLogin(usernameBox, passwordBox) {
 	$('.registerAlert').html('');
@@ -73,8 +88,8 @@ function onLogin(usernameBox, passwordBox) {
 				window.location.href = 'index.html';
 
             } else {
-				$('.registerAlert').html('Invalid username or password').css('color', 'red');
-
+				$('#errorDiv').attr("class", "form group");
+				//$('.registerAlert').html('Invalid username or password').css('color', 'red');
             }
 			
         }
@@ -83,10 +98,13 @@ function onLogin(usernameBox, passwordBox) {
 }
 
 function onRegister(usernameBox, passwordBox, emailBox) {
-	
-	$('.registerAlert').html('');
+		
+		// insure user name / pass are valid.
 
-	// user and pass are valid apparently, let's register yall
+		if (!window.validPass || !window.validUser) {
+			return;
+		}
+		
 	    $.ajax({
 
         type: "POST",
@@ -101,11 +119,13 @@ function onRegister(usernameBox, passwordBox, emailBox) {
         async: true,
         success: function(msg) {
             if (msg) {
-				$.cookie('login', msg);				
-				window.location.replace("index.html");
+				//$.cookie('login', msg);				
+				alert('success');
+				//window.location.replace("index.html");
 
             } else {
-				$('.registerAlert').html('Register failed... try again?').css('color', 'red');
+			
+				alert('failed');
             }
         }
     });
@@ -114,12 +134,15 @@ function onRegister(usernameBox, passwordBox, emailBox) {
 
 	
 }
+
+
 	
-function onFocusIn(alertBox) {
-    $(alertBox).html('');
+function removeValidation(inputBox, div, userIcon) {
+	div.attr("class", "form-group");
+	userIcon.attr("class", "glyphicon glyphicon-none");
 }
 
-*/
+
 
 function onKeyUp(requestType, inputBox, div, userIcon) {
 
@@ -137,10 +160,17 @@ function onKeyUp(requestType, inputBox, div, userIcon) {
         success: function(msg) {
 			//alert(msg);
             if (parseInt(msg) != -1) {
+			
+				// success.
+				
+				(requestType === 'checkPass') ? window.validPass = true : window.validUser = true;
+			
 				div.attr("class", "form-group has-success has-feedback");
 				userIcon.attr("class", "glyphicon glyphicon-ok form-control-feedback");
 
             } else {
+			
+				(requestType === 'checkPass') ? window.validPass = false : window.validUser = false;
 				div.attr("class", "form-group has-error has-feedback");
 				userIcon.attr("class", "glyphicon glyphicon-remove form-control-feedback");
 
