@@ -1,24 +1,29 @@
 function init() {
     // set global vars.
     window.lastId = -1;
+	
     // Make sure user is authenticated, and grab his user id.
-	//getUserId();
+	
+	getUserId();
 
-    //retrieveLastFiveMinutes();
+    retrieveLastFiveMinutes();
 
     //$("#messageBox").val('cal');
+	
 	/*
     $("#sendButton").click(function() {
         sendMessage();
         return false
     });
+	
+	*/
+	
     $("#logoutButton").click(function() {
         logout();
         return false
     });
-	*/
-	
-	alert('test');
+
+	//alert('test');
 }
 
 function logout() {
@@ -42,7 +47,6 @@ function logout() {
 
 function getUserId() {
     $.ajax({
-
         type: "POST",
         url: "ChatController.php",
         data: {
@@ -53,6 +57,7 @@ function getUserId() {
         success: function(msg) {
             if (msg != -1) {
                 window.userId = parseInt(msg);
+
             } else {
 				// user is not logged in, so redirect to login.
 				window.location.replace("login.html");
@@ -117,16 +122,26 @@ function retrieveLastFiveMinutes() {
         success: function(msg) {
 	
             if (msg != -1) {
-                // if messages are returned, add them to table.
+                
+				
+				// if messages are returned, add them to table.
                 var jsonReturned = $.parseJSON(msg);
-                var returnedHtml = '';
+                var userHtml = '';
+				var messageHtml = '';
+				var timeHtml = '';
+				
 				
 				if (jsonReturned.length != 0) {
 				
                 for (var i = 0; i < jsonReturned.length; i++) {
-					returnedHtml += '<tr><td>';
-                    returnedHtml += jsonReturned[i].username + '</td> <td>' + jsonReturned[i].content + "</td> <td>" + jsonReturned[i].date + '</td></tr>';
-                }
+					
+					var userHtml = "<strong class='primary-font'>jsonReturned[i].username</strong>";
+					var timeHtml = "<small class='pull-right text-muted'>" + 
+                                    "<span class='glyphicon glyphicon-time'></span>jsonReturned[i].date</small>"
+					
+					var messageHtml = "";
+
+				}
 
                 // grab last message id, and update global variable.
 				
@@ -139,7 +154,9 @@ function retrieveLastFiveMinutes() {
 				}
                 $("#chatTable").append(returnedHtml);
                 $("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
-            } else {
+				
+				
+			} else {
 				// user is not logged in, so redirect to login.
 				window.location.replace("login.html");
             }
