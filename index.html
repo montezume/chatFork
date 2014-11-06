@@ -1,68 +1,76 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <link href="styles.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="chat.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="jquerycookie/jquery.cookie.js"></script>
-</head>
-<title>Chat Room</title>
-</head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Chat room 2.0">
+    <meta name="author" content="Malcolm Laing">
+    <title>Chat 2.0</title>
 
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
 <body>
-    <div id="wrapper">
 	
-	<header>
-		<h1>chat.</h1>
-	</header>
+	<div class="container">
+	
+        <div class="header">
+            <!--
+        <ul class="nav nav-pills pull-right" role="tablist">
+          <li role="presentation" class="active"><a href="#">Home</a></li>
+        
+		  <li role="presentation"><a href="#">About</a></li>
+          <li role="presentation"><a href="#">Contact</a></li>
+		  -->
+            </ul>
+            <h3 class="text-muted">Chat 2.0</h3>
+        </div>
+		<div class="container-fluid">
 
-		<div id="chatBox">
-		
-			<div id="chatDiv">
+				
+			<div class="row">
+			
+				<div class="col-sm-8" id="messages">
+					<div class="row">
+						<p>Message A</p>
+					</div>
 
-            <table id="chatTable">
-			<h2>Messages</h2>
-
-            </table>
+				</div>
+				
+				<div class="col-sm-4" id="onlineUsers">
+					<div class="row">
+						<p>User A</p>
+					</div>
+					
+				</div>
 			</div>
-			<div id="userHeading">
-            <h2>Active Users</h2>
-            <div id="users">
-			</div>
-			</div>
-            
 		</div>
 		
-        <div id="controls">
-            <table>
-                <tr>
-                    <td>
-                        <input type="text" id="messageBox" class="resizedTextbox"> </td>
-                    <td><span class='messageError'></span>
-                    </td>
-                    <td>
-                        <input type="button" value="Send" id="sendButton">
-                    </td>
-					<td>
-        <div id="logout">
-            <input type="button" value="Logout" id="logoutButton">
+        <div class="footer">
+            <p>&copy; Malcolm Laing 2014</p>
         </div>
-		</td>
-                </tr>
-
-            </table>
-        </div>
-
-
-
-        <footer>
-            <h3>malcolm.</h3>
-            <p>&copy;2014&mdash;eternity</p>
-        </footer>
-
     </div>
+    <!-- /container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Login JS script handles events -->
+    <script src="js/login.js"></script>
+
+
+
+
 </body>
 
 </html>

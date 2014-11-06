@@ -28,17 +28,17 @@ function init() {
                 return;
             }
 			else {
+			// remove validation for both fields.
+
+			removeValidation( $("#inputUsername") , $("#usernameDiv"), $("#userIcon") );
+			removeValidation( $("#inputPassword") , $("#passwordDiv"), $("#passIcon") );
+	
 			$("#emailDiv").attr("class", "form-group hide");
 			$("#inputPassword").off();
 			$("#inputUsername").off();
 			// change button text to Login.
 			$("#buttonText").text("Login");
 			
-			// remove validation for both fields.
-			
-			removeValidation( $("#inputUsername") , $("#usernameDiv"), $("userIcon") );
-			removeValidation( $("#inputPassword") , $("#passwordDiv"), $("passIcon") );
-
 			}
 			return;
         });
@@ -128,15 +128,14 @@ function onRegister(usernameBox, passwordBox, emailBox) {
     });
 
     return;
-
-	
 }
 
 
 	
 function removeValidation(inputBox, div, userIcon) {
-	div.attr("class", "form-group");
-	userIcon.attr("class", "glyphicon glyphicon-none");
+	div.attr("class", "form group");
+	userIcon.attr("class", "glyphicon glyphicon-none form-control-feedback");
+	
 }
 
 
