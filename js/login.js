@@ -25,8 +25,6 @@ function init() {
 				// don't display login error.
 				$('#errorDiv').attr("class", "form-group hide");
 
-				
-				
                 return;
             }
 			else {
@@ -62,8 +60,7 @@ function onConnectClick(usernameBox, passwordBox, emailBox) {
 	else {
 		onLogin(usernameBox, passwordBox);
 	}
-	
-	
+
 	// either register or connect based on checkbox.
 	
 }
