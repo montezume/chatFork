@@ -19,42 +19,62 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body>
-	
-	<div class="container">
-	
+
+    <div class="container">
+
         <div class="header">
-            <!--
-        <ul class="nav nav-pills pull-right" role="tablist">
-          <li role="presentation" class="active"><a href="#">Home</a></li>
-        
-		  <li role="presentation"><a href="#">About</a></li>
-          <li role="presentation"><a href="#">Contact</a></li>
-		  -->
-            </ul>
-            <h3 class="text-muted">Chat 2.0</h3>
+
+            <div class="navbar navbar" role="navigation">
+                <div class="col-sm-8">
+                    <h3 class="muted">Chat 2.0</h3>
+                </div>
+
+                <div class="col-sm-4">
+                    <h3><button type="button" class="btn btn-default" id="logoutButton">Logout</button></h3>
+                </div>
+            </div>
+
         </div>
-		<div class="container-fluid">
-
-				
-			<div class="row">
-			
-				<div class="col-sm-8" id="messages">
-					<div class="row">
-						<p>Message A</p>
-					</div>
-
-				</div>
-				
-				<div class="col-sm-4" id="onlineUsers">
-					<div class="row">
-						<p>User A</p>
-					</div>
-					
-				</div>
-			</div>
-		</div>
 		
+		<hr class="divider">
+
+        <div id="chatDiv" style="min-height:200px">
+
+            <div class="row">
+
+                <div class="col-sm-8" id="messages">
+                    <p>Message A</p>
+                    <p>Message B</p>
+
+                </div>
+
+                <div class="col-sm-4" id="onlineUsers">
+                    <p>User A</p>
+                    <p>User B</p>
+
+                </div>
+            </div>
+        </div>
+        <!-- end chatDiv -->
+
+        <div id="sendDiv">
+            <div class="row">
+                <div class="col-sm-8" id="messageDiv">
+                    <input type="email" class="form-control" id="inputMessage" placeholder="Enter message">
+                </div>
+
+                <div class="col-sm-4" id="messageButtonDiv">
+                    <button type="button" class="btn btn-default" id="sendButton"><span id='buttonText'>Send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+		<hr class="divider">
+
+
         <div class="footer">
             <p>&copy; Malcolm Laing 2014</p>
         </div>
@@ -66,7 +86,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <!-- Login JS script handles events -->
-    <script src="js/login.js"></script>
+    <script src="js/chat.js"></script>
 
 
 

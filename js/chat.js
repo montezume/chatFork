@@ -2,11 +2,12 @@ function init() {
     // set global vars.
     window.lastId = -1;
     // Make sure user is authenticated, and grab his user id.
-	getUserId();
+	//getUserId();
 
-    retrieveLastFiveMinutes();
+    //retrieveLastFiveMinutes();
 
     //$("#messageBox").val('cal');
+	/*
     $("#sendButton").click(function() {
         sendMessage();
         return false
@@ -15,10 +16,14 @@ function init() {
         logout();
         return false
     });
+	*/
+	
+	alert('test');
 }
 
 function logout() {
-    $.ajax({
+   alert('logout');
+   $.ajax({
         type: "POST",
         url: "ChatController.php",
         data: {
