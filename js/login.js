@@ -1,16 +1,12 @@
 
 function init() {
 		
-		$("#registerCheck").change(function() {
-			
+		// start by unchecking register box.
 		
+		$("#registerCheck").change(function() {
             if (this.checked) {
-                //add event listeners to validate input.
-				/*
-                passwordBox.on("focusin", function() {
-                    onFocusIn('passAlert');
-                });
-				*/
+                
+				//add event listeners to validate input.
 				
                 $("#inputPassword").keyup(function() {
                     onKeyUp('checkPass', $("#inputPassword"), $("#passwordDiv"), $("#passIcon") );
@@ -20,41 +16,29 @@ function init() {
                     onKeyUp('checkUser', $("#inputUsername"), $("#usernameDiv"), $("#userIcon") );
                 });
 				
-				/*
-                $("#loginTable").append(emailHtml);
-				emailBox = $("#emailBox");
-                $.cookie('registerCheck', '1');
+				// display email div.
+				$("#emailDiv").attr("class", "form-group");
                 return;
-				*/
             }
-			
-			/*
-            $(" #emailRow ").remove();
-            passwordBox.off();
-            usernameBox.off();
-			$.cookie('registerCheck', '0');
-			onFocusIn('.userAlert');
-            onFocusIn('.passAlert');
+			else {
+			alert('not checked');
+			$("#emailDiv").attr("class", "form-group hide");
+			$("#inputPassword").off();
+			$("#inputUsername").off();
+			}
 			return;
-			*/
         });
-		
-		
-		/*
-        var usernameBox = $("#username");
-        var passwordBox = $("#passwordBox");
-        var emailHtml = "<tr id='emailRow'> <th>Email</th> <td><input type=text id='emailBox'> </td> <td><span class=emailAlert></span></td></tr>";
-		var emailBox;
-		*/
-  
-	//$( "#connectButton" ).click(function() { onConnectClick(usernameBox, passwordBox, emailBox); }  );
+		  
+	$( "#connectButton" ).click(function() { onConnectClick( $("#inputUsername"), $("#inputPassword"), $("#inputEmail") ); }  );
 
     } // end init
 
         
-		/*
+	
 
 function onConnectClick(usernameBox, passwordBox, emailBox) {
+	
+	alert('test');
 	
 	if ($('#registerCheck').is(":checked")) {
 		onRegister(usernameBox, passwordBox, emailBox);
@@ -68,6 +52,7 @@ function onConnectClick(usernameBox, passwordBox, emailBox) {
 	// either register or connect based on checkbox.
 	
 }
+/*
 
 function onLogin(usernameBox, passwordBox) {
 	$('.registerAlert').html('');
