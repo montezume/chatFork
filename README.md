@@ -1,5 +1,6 @@
 Chat 2.0
 ====
+Now with a more respectable design.
 ====
 This is a school project chat form that I'm redesigning using BootStrap CSS for a more fluid and response UI. B
 
