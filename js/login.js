@@ -11,19 +11,15 @@ function init() {
                     onFocusIn('passAlert');
                 });
 				*/
-				/*
-                passwordBox.on("focusout", function() {
-                    onFocusOut('checkPass', $("#passwordBox"), '.passAlert')
-                });
-				/*
-                $("#inputUsername").on("focusin", function() {
-                    onFocusIn('userAlert');
+				
+                $("#inputPassword").keyup(function() {
+                    onKeyUp('checkPass', $("#inputPassword"), $("#passwordDiv"), $("#passIcon") );
                 });
 				
-				*/
-                $("#inputUsername").on("focusout", function() {
-                    onFocusOut('checkUser', $("#inputUsername"), $("#usernameDiv"), $("#usernameFeedback") );
+                $("#inputUsername").keyup(function() {
+                    onKeyUp('checkUser', $("#inputUsername"), $("#usernameDiv"), $("#userIcon") );
                 });
+				
 				/*
                 $("#loginTable").append(emailHtml);
 				emailBox = $("#emailBox");
@@ -140,7 +136,7 @@ function onFocusIn(alertBox) {
 
 */
 
-function onFocusOut(requestType, inputBox, div, feedbackDiv) {
+function onKeyUp(requestType, inputBox, div, userIcon) {
 
 
     $.ajax({
@@ -157,13 +153,12 @@ function onFocusOut(requestType, inputBox, div, feedbackDiv) {
 			//alert(msg);
             if (parseInt(msg) != -1) {
 				div.attr("class", "form-group has-success has-feedback");
-				feedbackDiv.append("<span style='padding-right:20px' class='glyphicon glyphicon-ok form-control-feedback'></span>");
-
+				userIcon.attr("class", "glyphicon glyphicon-ok form-control-feedback");
 
             } else {
 				div.attr("class", "form-group has-error has-feedback");
-				feedbackDiv.remove();
-				//div.attr("class", "form-group has-success");
+				userIcon.attr("class", "glyphicon glyphicon-remove form-control-feedback");
+
             }
         }
     });
