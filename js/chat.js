@@ -144,16 +144,19 @@ function insertMessages(jsonReturned, firstTime) {
 				if (jsonReturned.length != 0) {
 				
                 for (var i = 0; i < jsonReturned.length; i++) {
-					var messageBody = "<li><div class='chat-body'><div class='header'>";
-
-					var userHtml = "<strong class='primary-font'>" + jsonReturned[i].username + "</strong>";
+					
+					var messageBody = '';
+					(jsonReturned[i].user_id == window.userId) ? messageBody = "<li class='list-group-item list-group-item-info'>" : messageBody = "<li class='list-group-item list-group-item-success'>";
+					
+					
+					var userHtml = "<div class='heading'><strong class='primary-font'>" + jsonReturned[i].username + "</strong>";
 					var timeHtml = "<small class='pull-right text-muted'>" + 
                                     "<span class='glyphicon glyphicon-time'></span> " + jsonReturned[i].date + ' minutes ago</small>';
 					var messageHtml = "<p>" + jsonReturned[i].content + "</p>";
 
 					messageBody += userHtml;
 					messageBody += timeHtml;
-					messageBody += "</div>"
+					messageBody += "";
 					messageBody += messageHtml;
 					messageBody += "</div></li>";
 					htmlMessages += messageBody;

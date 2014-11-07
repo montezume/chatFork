@@ -59,7 +59,7 @@ class MessageDAO {
 		 */
 		function retrieveLastFiveMins() {
 				
-			$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_FORMAT(DATE_CREATED, '%h:%i:%s %p') AS DATE_CREATED, USERNAME FROM MESSAGE natural join USER where DATE_CREATED > DATE_SUB(now(), INTERVAL 5 MINUTE);";
+			$query = "select MESSAGE_ID, CONTENT, USER_ID, CAST((time_to_sec(timediff(NOW(), LAST_ACTIVE)) / 60) AS UNSIGNED) AS DATE_CREATED, USERNAME FROM MESSAGE natural join USER where DATE_CREATED > DATE_SUB(now(), INTERVAL 5 MINUTE);";
 			$stmt = $this->pdo->prepare($query);
 			$stmt->execute();
 			
