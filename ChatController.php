@@ -21,7 +21,7 @@ switch ($requestType) {
             echo $userDAO->getActiveUsers();
         } else {
             // User is not authenticated.
-            return false;
+            return -1;
         }
         break;
     
@@ -140,7 +140,7 @@ switch ($requestType) {
         
         else {
             // there was a problem creating account.
-            echo false;
+            echo -1;
         }
         
         break;

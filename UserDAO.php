@@ -70,7 +70,7 @@ class UserDAO {
 		
 		// Validation
 		if (!($this->validateUsername($username)) || !($this->validatePassword($password))) {
-			return false;
+			return -1;
 		}
 		
 		$hashPass = password_hash($password, PASSWORD_BCRYPT);
@@ -87,7 +87,7 @@ class UserDAO {
 	function validateUsername($username) {
 	
 		if ($username == "") {
-			return false;
+			return -1;
 		}
 		// check it's not empty string.
 		

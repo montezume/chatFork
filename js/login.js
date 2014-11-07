@@ -117,12 +117,12 @@ function onRegister(usernameBox, passwordBox, emailBox) {
         success: function(msg) {
             if (msg) {
 				//$.cookie('login', msg);				
-				alert('success');
+				//alert('success');
 				window.location.replace("index.html");
 
             } else {
-			
-				alert('failed');
+				// register failed.
+				//alert('failed');
             }
         }
     });
