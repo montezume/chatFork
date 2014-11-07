@@ -21,7 +21,7 @@ function init() {
 				// display email div.
 				$("#emailDiv").attr("class", "form-group");
 				// button should display Register.
-				$("#buttonText").text("Register");
+				//$("#buttonText").text("Register");
 				// don't display login error.
 				$('#errorDiv').attr("class", "form-group hide");
 
@@ -37,7 +37,7 @@ function init() {
 			$("#inputPassword").off();
 			$("#inputUsername").off();
 			// change button text to Login.
-			$("#buttonText").text("Login");
+			//$("#buttonText").text("Login");
 			
 			}
 			return;

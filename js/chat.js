@@ -146,13 +146,13 @@ function insertMessages(jsonReturned, firstTime) {
 					var messageBody = '';
 					(jsonReturned[i].user_id == window.userId) ? messageBody = "<li class='list-group-item list-group-item-success'>" : messageBody = "<li class='list-group-item list-group-item-warning'>";
 					
-					if (jsonReturned[i].user_id != window.userId) {
 					var userHtml = "<div class='heading'><strong class='primary-font'>" + jsonReturned[i].username + "</strong>";
 					
 					var timeHtml = "<small class='pull-right text-muted'>" + 
-                                    "<span class='glyphicon glyphicon-time'></span> " + jsonReturned[i].date + ' minutes ago</small>';
+                                    "<span class='glyphicon glyphicon-time'></span> " + jsonReturned[i].date + '</small>';
 					var messageHtml = "<p>" + jsonReturned[i].content + "</p>";
-					}
+					
+					/*
 					
 					else {
 					var timeHtml = "<small class='text-muted'>" + 
@@ -161,9 +161,8 @@ function insertMessages(jsonReturned, firstTime) {
 					var userHtml = "<div class='heading'><strong class='pull-right primary-font'>" + jsonReturned[i].username + "</strong>";
 					
 					var messageHtml = "<p>" + jsonReturned[i].content + "</p>";
-
-					
 					}
+					*/
 					messageBody += userHtml;
 					messageBody += timeHtml;
 					messageBody += messageHtml;
