@@ -44,7 +44,7 @@ function init() {
         });
 		
 		
-		  $( "#connectButton" ).click(function(e) { onConnectClick( $("#inputUsername"), $("#inputPassword"), $("#inputEmail") );  }  );
+		  $( "#submitForm" ).submit(function(event) { event.preventDefault(); onConnectClick( $("#inputUsername"), $("#inputPassword"), $("#inputEmail") );  }  );
 
     } // end init
 
@@ -52,7 +52,7 @@ function init() {
 	
 
 function onConnectClick(usernameBox, passwordBox, emailBox) {
-		
+
 	if ($('#registerCheck').is(":checked")) {
 		onRegister(usernameBox, passwordBox, emailBox);
 	}
@@ -60,9 +60,9 @@ function onConnectClick(usernameBox, passwordBox, emailBox) {
 	else {
 		onLogin(usernameBox, passwordBox);
 	}
-
 	// either register or connect based on checkbox.
 	
+	return false;
 }
 
 

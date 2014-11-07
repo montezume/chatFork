@@ -6,9 +6,6 @@ function init() {
 	
 	getUserId();
 
-    retrieveLastFiveMinutes();
-
-	
 	
     $("#sendButton").click(function() {
         sendMessage();
@@ -54,6 +51,7 @@ function getUserId() {
         success: function(msg) {
             if (msg != -1) {
                 window.userId = parseInt(msg);
+				retrieveLastFiveMinutes();
 
             } else {
 				// user is not logged in, so redirect to login.
@@ -146,17 +144,28 @@ function insertMessages(jsonReturned, firstTime) {
                 for (var i = 0; i < jsonReturned.length; i++) {
 					
 					var messageBody = '';
-					(jsonReturned[i].user_id == window.userId) ? messageBody = "<li class='list-group-item list-group-item-info'>" : messageBody = "<li class='list-group-item list-group-item-success'>";
+					(jsonReturned[i].user_id == window.userId) ? messageBody = "<li class='list-group-item list-group-item-success'>" : messageBody = "<li class='list-group-item list-group-item-warning'>";
 					
-					
+					if (jsonReturned[i].user_id != window.userId) {
 					var userHtml = "<div class='heading'><strong class='primary-font'>" + jsonReturned[i].username + "</strong>";
+					
 					var timeHtml = "<small class='pull-right text-muted'>" + 
                                     "<span class='glyphicon glyphicon-time'></span> " + jsonReturned[i].date + ' minutes ago</small>';
 					var messageHtml = "<p>" + jsonReturned[i].content + "</p>";
+					}
+					
+					else {
+					var timeHtml = "<small class='text-muted'>" + 
+                                   "<span class='glyphicon glyphicon-time'></span> " + jsonReturned[i].date + ' minutes ago</small>';
 
+					var userHtml = "<div class='heading'><strong class='pull-right primary-font'>" + jsonReturned[i].username + "</strong>";
+					
+					var messageHtml = "<p>" + jsonReturned[i].content + "</p>";
+
+					
+					}
 					messageBody += userHtml;
 					messageBody += timeHtml;
-					messageBody += "";
 					messageBody += messageHtml;
 					messageBody += "</div></li>";
 					htmlMessages += messageBody;
