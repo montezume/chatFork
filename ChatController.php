@@ -29,10 +29,9 @@ switch ($requestType) {
     case 'logout':
 		// destroy the session.
 		
-		
-        if ($_SESSION['user']) {
-            unset($_SESSION["user"]);
-        }
+		// Unset all of the session variables.
+		$_SESSION = array();
+		session_destroy();
         break;
     
     /* Accepts a user id, message content, and adds the message to the db.
