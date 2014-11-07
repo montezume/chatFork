@@ -25,7 +25,6 @@ function init() {
 }
 
 function logout() {
-   alert('logout');
    $.ajax({
         type: "POST",
         url: "ChatController.php",
@@ -149,7 +148,7 @@ function insertMessages(jsonReturned, firstTime) {
 
 					var userHtml = "<strong class='primary-font'>" + jsonReturned[i].username + "</strong>";
 					var timeHtml = "<small class='pull-right text-muted'>" + 
-                                    "<span class='glyphicon glyphicon-time'></span>" + jsonReturned[i].date + '</small>';
+                                    "<span class='glyphicon glyphicon-time'></span> " + jsonReturned[i].date + ' minutes ago</small>';
 					var messageHtml = "<p>" + jsonReturned[i].content + "</p>";
 
 					messageBody += userHtml;
@@ -192,8 +191,20 @@ function getOnlineUsers() {
                 //alert(jsonReturned[1].username);
 
                 for (var i = 0; i < jsonReturned.length; i++) {
-                    returnedHtml += "<li>" + jsonReturned[i].username + '</li>';
+                   returnedHtml += "<li class='list-group-item'>" + jsonReturned[i].username + "<small class='pull-right text-muted'>" + 
+                                    "<span class='glyphicon glyphicon-time'></span> " + jsonReturned[i].last_active + " minutes ago</small></li>";
+
+				   
+				   
+				   
+				   //returnedHtml += "<li class='list-group-item'>" + jsonReturned[i].last_active + "</li>";
+				   
+				   /*
+					returnedHtml += "<li class='media'><div class='media-body'><div class='media'><h5>" + jsonReturned[i].username +
+					'</h5>' + "<small class='text-muted'>Active as of " + jsonReturned[i].last_active +  '</small></div></div></li>';
                     returnedHtml += '';
+					
+					*/
                 }
                 $("#users").html(returnedHtml);
             } else {

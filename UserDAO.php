@@ -17,7 +17,7 @@ class UserDAO {
 		}
 	
 	function getActiveUsers() {
-		$query = "select USER_ID, USERNAME, DATE_FORMAT(LAST_ACTIVE, '%h:%i:%s %p') AS LAST_ACTIVE from user where LAST_ACTIVE > DATE_SUB(now(), INTERVAL 5 MINUTE);";
+		$query = "select USER_ID, USERNAME, CAST((time_to_sec(timediff(NOW(), LAST_ACTIVE)) / 60) AS UNSIGNED)  AS LAST_ACTIVE from user where LAST_ACTIVE > DATE_SUB(now(), INTERVAL 5 MINUTE);";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
 		

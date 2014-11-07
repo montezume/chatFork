@@ -118,7 +118,7 @@ function onRegister(usernameBox, passwordBox, emailBox) {
             if (msg) {
 				//$.cookie('login', msg);				
 				alert('success');
-				//window.location.replace("index.html");
+				window.location.replace("index.html");
 
             } else {
 			

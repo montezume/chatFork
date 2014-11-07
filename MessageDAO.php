@@ -29,7 +29,7 @@ class MessageDAO {
 
 		function retrieve($lastId) {
 	
-			$query = "select MESSAGE_ID, CONTENT, USER_ID, DATE_FORMAT(DATE_CREATED, '%h:%i:%s %p') AS DATE_CREATED, USERNAME FROM MESSAGE natural join USER where MESSAGE_ID > ? ;";
+			$query = "select MESSAGE_ID, CONTENT, USER_ID, CAST((time_to_sec(timediff(NOW(), LAST_ACTIVE)) / 60) AS UNSIGNED) AS DATE_CREATED, USERNAME FROM MESSAGE natural join USER where MESSAGE_ID > ? ;";
 			
 			$stmt = $this->pdo->prepare($query);
 			$stmt->bindParam(1, $lastId);
